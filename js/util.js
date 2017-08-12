@@ -68,6 +68,12 @@ exports.getWorkbenchURL = function (profile) {
   return '/#workbench'
 }
 
+exports.getViewShopURL = function (profile) {
+  if (!profile) return ''
+  var url = profile._origin ? profile._origin : profile
+  return '/#shop/' + url.slice('dat://'.length)
+}
+
 // TCW -- end
 
 exports.getIsFollowed = async function (state, profile) {

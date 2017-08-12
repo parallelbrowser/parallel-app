@@ -16,9 +16,12 @@ app.route('/profile/:key/edit', require('./views/profile'))
 app.route('/broadcast/*', require('./views/broadcast'))
 app.route('/settings', require('./views/settings'))
 
-// TCW -- new route for user workbench (for submitting scripts)
+// TCW -- new routes
+// user workbench: (for submitting scripts)
+// store: for displaying scripts
 
 app.route('/workbench', require('./views/workbench'))
+app.route('/shop/:key', require('./views/shop'))
 
 // TCW -- end
 
