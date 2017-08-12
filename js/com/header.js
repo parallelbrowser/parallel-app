@@ -1,6 +1,6 @@
 const html = require('choo/html')
 const renderAvatar = require('./avatar')
-const {getViewProfileURL, getEditProfileURL} = require('../util')
+const {getViewProfileURL, getEditProfileURL, getWorkbenchURL} = require('../util')
 
 module.exports = function renderFeed (state, emit) {
   return html`
@@ -21,6 +21,9 @@ module.exports = function renderFeed (state, emit) {
               </a>
               <a href=${getEditProfileURL(state.userProfile)} class="dropdown-menu-item">
                 Edit profile
+              </a>
+              <a href=${getWorkbenchURL(state.userProfile)} class="dropdown-menu-item">
+                Your Workbench
               </a>
               <a href="https://github.com/beakerbrowser/dat-nexus-app/issues" class="dropdown-menu-item">
                 Report an issue

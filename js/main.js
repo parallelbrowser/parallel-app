@@ -14,4 +14,11 @@ app.route('/profile/:key/follows', require('./views/follows'))
 app.route('/profile/:key/edit', require('./views/profile'))
 app.route('/broadcast/*', require('./views/broadcast'))
 app.route('/settings', require('./views/settings'))
+
+// TCW -- new route for user workbench (for submitting scripts)
+
+app.route('/workbench', require('./views/workbench'))
+
+// TCW -- end
+
 app.mount('main')

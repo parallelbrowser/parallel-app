@@ -62,6 +62,14 @@ exports.getViewBroadcastURL = function (broadcast) {
   return '/#broadcast/' + broadcast._url.slice('dat://'.length)
 }
 
+// TCW -- added url for workbench route
+
+exports.getWorkbenchURL = function (profile) {
+  return '/#workbench'
+}
+
+// TCW -- end
+
 exports.getIsFollowed = async function (state, profile) {
   if (state.userProfile && profile._origin !== state.userProfile._origin) {
     return await state.DB().isFollowing(state.userProfile._origin, profile._origin)
