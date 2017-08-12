@@ -1,0 +1,94 @@
+@import "./base/reset";
+@import "./base/colors";
+@import "./base/spacing";
+@import "./utils/decorators";
+@import "./utils/flex";
+@import "./com/buttons";
+@import "./com/messages";
+@import "./com/link";
+@import "./com/broadcast";
+@import "./com/feed";
+@import "./com/profile";
+@import "./com/post-form";
+
+body {
+  overflow: auto;
+  font-family: system,-apple-system,".SFNSDisplay-Regular","Helvetica Neue",Helvetica,"Segoe UI",sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+  color: #333;
+}
+
+main {
+  width: 780px;
+  margin: 0 auto;
+
+  h1 {
+    font-size: 18px;
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+
+  h2 {
+    font-weight: 400;
+    font-size: 13px;
+    letter-spacing: .5px;
+    color: @color-text--light;
+  }
+}
+
+.grid {
+  &:extend(.flex);
+  flex-wrap: nowrap;
+  margin-top: @padding-component--thick;
+}
+
+.feed-container {
+  width: 70%;
+  padding-right: @padding-component--thick;
+
+  & > :first-child {
+    margin-top: 0;
+  }
+}
+
+.follows {
+  .profile {
+    margin-top: 10px;
+  }
+}
+
+form {
+  p {
+    margin-top: 0;
+  }
+
+  input,
+  textarea {
+    display: block;
+    width: 100%;
+    padding: 5px;
+    border-radius: 2px;
+    border: 1px solid #ccc;
+  }
+
+  .btn {
+    margin-right: 5px;
+  }
+}
+
+.sidebar {
+  background: #fff;
+  width: 30%;
+
+  .buttons {
+    margin-bottom: @padding-component--tight;
+
+    i {
+      cursor: pointer;
+      margin-left: @margin-icon;
+    }
+  }
+
+}
+
