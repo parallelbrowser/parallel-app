@@ -11,7 +11,7 @@ module.exports = function followsView (state, emit) {
   }
   if (!state.currentProfile) {
     // load the profile and rerender
-    state.loadProfile('dat://' + state.params.key, {getFollowProfiles: true})
+    state.loadProfile('dat://' + state.params.key, {getFollowProfiles: true, getSubscripts: true})
     return loadingView(state, emit)
   }
   return html`

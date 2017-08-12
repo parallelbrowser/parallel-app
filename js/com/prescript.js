@@ -1,5 +1,8 @@
 const html = require('choo/html')
 const renderLikeBtn = require('./like-btn')
+
+// TCW -- button to subscribe
+const renderSubscribeBtn = require('./subscribe-btn')
 const renderAvatar = require('./avatar')
 const {getViewProfileURL, getViewPrescriptURL, niceDate} = require('../util')
 
@@ -29,7 +32,7 @@ module.exports = function renderPrescript (state, emit, prescript, showDetails) 
       </div>
 
       <div class="controls">
-        ${renderLikeBtn(emit, prescript)}
+        ${renderLikeBtn(emit, prescript)} ${renderSubscribeBtn(state, emit, prescript)}
       </div>
     </div>
   `

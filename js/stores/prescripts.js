@@ -1,4 +1,4 @@
-module.exports = function prescriptsStore (state, emitter) {
+module.exports = function prescriptStore (state, emitter) {
   state.error = null
   state.prescripts = null
 

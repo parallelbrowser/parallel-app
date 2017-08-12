@@ -50,9 +50,9 @@ module.exports = async function profileStore (state, emitter) {
     emitter.emit('render')
   })
 
-  state.loadProfile = async (url, {getFollowProfiles} = {}) => {
+  state.loadProfile = async (url, {getFollowProfiles, getSubscripts} = {}) => {
     try {
-      state.currentProfile = await readProfile(state, url, {getFollowProfiles})
+      state.currentProfile = await readProfile(state, url, {getFollowProfiles, getSubscripts})
     } catch (e) {
       state.error = e
     }
@@ -73,6 +73,25 @@ module.exports = async function profileStore (state, emitter) {
     }
     emitter.emit('render')
   }
+
+  // TCW -- function for toggling script subscription
+
+  state.toggleSubscribe = async subscript => {
+    try {
+      if (subscript.isSubscribed) {
+        await state.DB().unsubscribe(state.userProfile._origin, subscript._origin)
+        subscript.isSubscribed = false
+      } else {
+        await state.DB().subscribe(state.userProfile._origin, subscript._origin)
+        subscript.isSubscribed = true
+      }
+    } catch (e) {
+      state.error = e
+    }
+    emitter.emit('render')
+  }
+
+  // TCW -- END
 
   state.updateProfile = async (values) => {
     try {
@@ -96,7 +115,7 @@ module.exports = async function profileStore (state, emitter) {
       await state.DB().setProfile(archive.url, values)
 
       // reload
-      state.userProfile = await readProfile(state, archive.url, {getFollowProfiles: true})
+      state.userProfile = await readProfile(state, archive.url, {getFollowProfiles: true, getSubscripts: true})
     } catch (e) {
       console.error(e)
       state.error = e
@@ -135,5 +154,15 @@ async function readProfile (state, url, opts = {}) {
     profile.followProfiles = profile.followProfiles.filter(Boolean)
     profile.followProfiles.forEach(s => { s.isFollowed = true })
   }
+
+  // TCW -- get subscripts as well
+
+  if (opts.getSubscripts) {
+    profile.subscripts = await Promise.all(profile.subscriptUrls.map(db.getSubscript))
+    profile.subscripts = profile.subscripts.filter(Boolean)
+    profile.subscripts.forEach(s => { s.isSubscribed = true })
+  }
+
+  // TCW -- END
   return profile
 }
