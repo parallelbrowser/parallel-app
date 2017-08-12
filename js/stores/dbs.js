@@ -1,4 +1,4 @@
-const NexusAPI = require('dat-nexus-api')
+const NexusAPI = require('parallel-scratch-api')
 
 module.exports = async function dbStore (state, emitter) {
   var userURL = null

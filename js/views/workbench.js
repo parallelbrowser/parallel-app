@@ -2,7 +2,7 @@ const html = require('choo/html')
 const loadingView = require('./loading')
 const renderError = require('../com/error')
 const renderHeader = require('../com/header')
-const renderProfileEditor = require('../com/profile-editor')
+const renderWorkbench = require('../com/workbench')
 const {getViewProfileURL} = require('../util')
 
 module.exports = function broadcastView (state, emit) {
@@ -18,9 +18,9 @@ module.exports = function broadcastView (state, emit) {
           ${renderError(state, emit)}
           <a href=${getViewProfileURL(state.userProfile)} class="breadcrumbs">
             <i class="fa fa-caret-left"></i>
-            This is a test!
+            Your Workbench
           </a>
-          ${renderProfileEditor(state, emit, state.userProfile)}
+          ${renderWorkbench(state, emit, state.userProfile)}
         </div>
       </div>
     </main>
