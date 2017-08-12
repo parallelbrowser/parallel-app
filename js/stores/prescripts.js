@@ -31,21 +31,6 @@ module.exports = function prescriptStore (state, emitter) {
     emitter.emit('render')
   }
 
-  state.toggleSubscribe = async prescript => {
-    try {
-      if (prescript.isSubscribed) {
-        await state.DB().subscribe(state.userProfile._origin, prescript._origin)
-        prescript.isSubscribed = false
-      } else {
-        await state.DB().subscribe(state.userProfile._origin, prescript._origin)
-        prescript.isSubscribed = true
-      }
-    } catch (e) {
-      state.error = e
-    }
-    emitter.emit('render')
-  }
-
   emitter.on('prescript-like', async prescript => {
     state.DB().vote(state.userArchive, {vote: 1, subject: prescript._url})
     prescript.votes.currentUsersVote = 1

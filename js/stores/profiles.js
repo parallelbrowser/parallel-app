@@ -1,4 +1,4 @@
-/* globals DatArchive */
+/* globals DatArchive FileReader */
 
 const {getUserProfileURL, setUserProfileURL, getViewProfileURL, getIsFollowed} = require('../util')
 
@@ -74,25 +74,6 @@ module.exports = async function profileStore (state, emitter) {
     emitter.emit('render')
   }
 
-  // TCW -- function for toggling script subscription
-
-  state.toggleSubscribe = async subscript => {
-    try {
-      if (subscript.isSubscribed) {
-        await state.DB().unsubscribe(state.userProfile._origin, subscript._origin)
-        subscript.isSubscribed = false
-      } else {
-        await state.DB().subscribe(state.userProfile._origin, subscript._origin)
-        subscript.isSubscribed = true
-      }
-    } catch (e) {
-      state.error = e
-    }
-    emitter.emit('render')
-  }
-
-  // TCW -- END
-
   state.updateProfile = async (values) => {
     try {
       // create the profile if needed
@@ -154,15 +135,5 @@ async function readProfile (state, url, opts = {}) {
     profile.followProfiles = profile.followProfiles.filter(Boolean)
     profile.followProfiles.forEach(s => { s.isFollowed = true })
   }
-
-  // TCW -- get subscripts as well
-
-  if (opts.getSubscripts) {
-    profile.subscripts = await Promise.all(profile.subscriptUrls.map(db.getSubscript))
-    profile.subscripts = profile.subscripts.filter(Boolean)
-    profile.subscripts.forEach(s => { s.isSubscribed = true })
-  }
-
-  // TCW -- END
   return profile
 }

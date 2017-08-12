@@ -1,3 +1,5 @@
+/* globals FileReader */
+
 const html = require('choo/html')
 const {getViewProfileURL, getAvatarStyle} = require('../util')
 

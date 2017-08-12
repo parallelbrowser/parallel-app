@@ -12,9 +12,11 @@ app.use(require('./stores/header'))
 // TCW -- new stores:
 // new-prescript: for saving a prescript generated in the shop
 // prescripts: for loading and working with prescripts
+// subscripts: for subscribing and unsubscribing to scripts
 
 app.use(require('./stores/new-prescript'))
 app.use(require('./stores/prescripts'))
+app.use(require('./stores/subscripts'))
 
 // TCW -- END
 
