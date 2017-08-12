@@ -27,6 +27,8 @@ module.exports = function shopView (state, emit) {
   let prescripts = state.prescripts
   console.log('prescripts', prescripts)
 
+  const showDetails = false
+
   return html`
     <main>
       ${renderHeader(state, emit, state.userProfile)}
@@ -36,7 +38,7 @@ module.exports = function shopView (state, emit) {
           ${renderProfileCard(state, emit, state.currentProfile)}
           ${renderError(state, emit)}
           <h1 class="heading subtle">Shop -- Gizmos for sale!</h1>
-          <ul class="feed">${prescripts.map(p => renderPrescript(state, emit, p))}</ul>
+          <ul class="feed">${prescripts.map(p => renderPrescript(state, emit, p, showDetails))}</ul>
         </div>
       </div>
     </main>

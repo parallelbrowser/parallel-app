@@ -22,6 +22,15 @@ module.exports = function prescriptsStore (state, emitter) {
     emitter.emit('render')
   }
 
+  state.loadCurrentPrescript = async function (url) {
+    try {
+      state.currentPrescript = await state.DB().getPrescript(url)
+    } catch (e) {
+      state.error = e
+    }
+    emitter.emit('render')
+  }
+
   state.toggleSubscribe = async prescript => {
     try {
       if (prescript.isSubscribed) {

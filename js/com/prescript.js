@@ -3,7 +3,7 @@ const renderLikeBtn = require('./like-btn')
 const renderAvatar = require('./avatar')
 const {getViewProfileURL, getViewPrescriptURL, niceDate} = require('../util')
 
-module.exports = function renderPrescript (state, emit, prescript, isParent) {
+module.exports = function renderPrescript (state, emit, prescript, showDetails) {
   return html`
     <div class="broadcast parent}">
       <div class="broadcast-content">
@@ -17,11 +17,14 @@ module.exports = function renderPrescript (state, emit, prescript, isParent) {
             <a href=${getViewPrescriptURL(prescript)} target="_blank"><span class="date">${niceDate(prescript.createdAt)}</span></a>
           </div>
 
-          <p class="content">${prescript.prescriptName}</p>
-          <p class="content">${prescript.prescriptInfo}</p>
-          <p class="content">${prescript.prescriptJS}</p>
-          <p class="content">${prescript.prescriptCSS}</p>
-
+          <p class="content">Gizmo Name: ${prescript.prescriptName}</p>
+          <p class="content">Gizmo Info: ${prescript.prescriptInfo}</p>
+          ${showDetails ? html`
+            <div>
+              <p class="content">Gizmo JS: ${prescript.prescriptJS}</p>
+              <p class="content">Gizmo CSS: ${prescript.prescriptCSS}</p>
+            </div>
+          ` : ''}
         </div>
       </div>
 

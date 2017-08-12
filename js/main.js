@@ -28,9 +28,11 @@ app.route('/settings', require('./views/settings'))
 // TCW -- new routes
 // user workbench: (for submitting scripts)
 // store: for displaying scripts
+// prescript: for displaying a single prescript in detail
 
 app.route('/workbench', require('./views/workbench'))
 app.route('/shop/:key', require('./views/shop'))
+app.route('/prescript/*', require('./views/prescript'))
 
 // TCW -- end
 
