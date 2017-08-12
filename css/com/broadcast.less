@@ -1,17 +1,35 @@
 .broadcast {
-  &:extend(.flex);
-  flex-wrap: nowrap;
-  padding: @padding-component--tight;
-  border: 1px solid #ddd;
+  &:extend(.card);
+  border-bottom: 1px solid @color-border--card;
+  margin-top: 10px;
 
-  .metadata * {
-    line-height: 100%;
-    vertical-align: top;
+  &:first-child {
+    margin-top: 0;
+    border-radius: 4px 4px 0 0;
+  }
+
+  &:last-child {
+    border-radius: 0 0 4px 4px;
+    border-bottom: 0;
+  }
+  .avatar-container {
+    margin-right: 10px;
+  }
+
+  .broadcast-container {
+    flex: 1;
+
+    > * {
+      display: block;
+    }
+  }
+
+  .metadata {
+
   }
 
   .name {
-    &:extend(.link);
-    cursor: pointer;
+    font-weight: 600;
 
     &:hover {
       &:extend(.link:hover);
@@ -19,7 +37,8 @@
   }
 
   .date {
-    color: @color-text--muted;
+    font-size: .8rem;
+    color: @color-text--transparent;
     cursor: pointer;
     margin-left: 3px;
 
@@ -28,43 +47,143 @@
     }
   }
 
-  .avatar {
-    border-radius: 2px;
-    width: 35px;
-    height: 35px;
-  }
-
-  .container {
-    margin: 0 @padding-component--tight;
-  }
-
   .content {
-    margin: 0.5rem 0 0.5rem;
+    margin: 3px 0 10px 0;
+    color: @color-text--muted;
   }
 
   .controls {
-    a {
-      color: #777;
+    &:extend(.flex);
+    justify-content: space-between;
+    border-top: 1px solid @color-border;
+    padding: 5px 0;
+    margin: 0 10px;
+    font-size: .75rem;
+    color: @color-text--transparent;
+
+    i {
+      margin-right: 4px;
+      color: @color-text--transparent;
+    }
+
+    .fa-comment-o:hover {
+      color: @color-text--btn;
+    }
+
+    button {
+      padding: 0;
+    }
+
+    .action {
       cursor: pointer;
+      display: inline-block;
 
-      &:hover {
-        color: @blue;
-      }
-    }
-    .count {
-      &:hover {
-        text-decoration: underline;
-      }
-    }
-    .like-action {
-      position: relative;
-      top: 1px;
-      font-size: 17px;
-      margin-left: 30px;
+      &.comment {
 
-      &:hover {
-        color: @orange;
+        &:hover {
+          &:extend(.link:hover);
+        }
+      }
+
+      &.like {
+        color: @color-text--transparent !important;
+        position: relative;
+
+        i {
+          bottom: -1px;
+          font-size: 16px;
+        }
+
+        i.fa-star,
+        &:hover i {
+          color: @orange;
+          color: @color-text--warning;
+        }
       }
     }
+  }
+}
+
+.broadcast-content {
+  &:extend(.flex);
+  flex-wrap: nowrap;
+  padding: 15px 10px;
+}
+
+.comments {
+  background: @color-bg;
+  border-top: 1px solid @color-border;
+  font-size: .8rem;
+  padding: 15px 10px;
+
+  .avatar {
+    width: 30px;
+    height: 30px;
+    margin-right: 5px;
+  }
+}
+
+.comments-editor {
+  &:extend(.flex);
+  flex-wrap: nowrap;
+  padding-bottom: 10px;
+
+  .avatar {
+    width: 30px;
+  }
+
+  .avatar,
+  textarea {
+    height: 30px;
+  }
+
+  textarea {
+    flex: 1;
+    min-height: initial;
+    padding-top: 6px;
+  }
+}
+
+.comment {
+  &:extend(.flex);
+  flex-wrap: nowrap;
+  font-size: .8rem;
+
+  > * {
+    display: inline-block;
+  }
+
+  .author {
+    &:extend(.link);
+  }
+
+  .content {
+    line-height: 100%;
+    vertical-align: top;
+  }
+
+  .footer {
+    display: block;
+    margin-top: 10px;
+    font-size: .75rem;
+    color: @color-text--transparent;
+  }
+}
+
+.broadcast.parent {
+  position: relative;
+  margin-bottom: 70px;
+  overflow: initial;
+
+  &:after {
+    display: block;
+    content: '';
+    position: absolute;
+    left: 15px;
+    bottom: -60px;
+    width: 5px;
+    background: @color-border;
+    border-radius: 10px;
+    height: 50px;
   }
 }

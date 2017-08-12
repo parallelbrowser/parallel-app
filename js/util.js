@@ -25,7 +25,7 @@ exports.setUserProfileURL = function (url) {
   localStorage.userProfileURL = url
 }
 
-exports.getAvatarUrl = function (profile) {
+exports.getAvatarURL = function (profile) {
   if (profile && profile.avatar) {
     return profile._origin + profile.avatar
   }
@@ -34,6 +34,9 @@ exports.getAvatarUrl = function (profile) {
 
 exports.getAvatarStyle = function (profile) {
   // derive a fallback color from the author's URL (hey, why not)
+  if (profile && profile.avatar) {
+    return 'background-image: url(' + profile._origin + profile.avatar + ')'
+  }
   const color = profile._origin.slice('dat://'.length, 'dat://'.length + 6)
   return 'background-color: #' + color
 }
@@ -46,7 +49,8 @@ exports.getViewProfileURL = function (profile) {
 
 exports.getEditProfileURL = function (profile) {
   var url = profile._origin ? profile._origin : profile
-  return '/#profile/' + url.slice('dat://'.length) + '/edit'
+  return '/#settings'
+  // return '/#profile/' + url.slice('dat://'.length) + '/edit'
 }
 
 exports.getViewFollowsURL = function (profile) {
@@ -55,7 +59,6 @@ exports.getViewFollowsURL = function (profile) {
 }
 
 exports.getViewBroadcastURL = function (broadcast) {
-  console.log('broadcast url', broadcast._url)
   return '/#broadcast/' + broadcast._url.slice('dat://'.length)
 }
 

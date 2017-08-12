@@ -1,10 +1,12 @@
 const html = require('choo/html')
 const loadingView = require('./loading')
 const renderError = require('../com/error')
+const renderHeader = require('../com/header')
 const renderPostForm = require('../com/post-form')
 const renderFeed = require('../com/feed')
-const renderProfile = require('../com/profile')
+const renderProfile = require('../com/profile-card')
 const renderProfileEditor = require('../com/profile-editor')
+const renderCreateProfileModal = require('../com/create-profile-modal')
 
 module.exports = function mainView (state, emit) {
   if (!state.isAppLoaded) {
@@ -13,18 +15,22 @@ module.exports = function mainView (state, emit) {
   if (!state.broadcasts) {
     state.loadMainFeed()
   }
+  if (!state.userProfile) {
+    return html`<main>${renderCreateProfileModal(state, emit)}</main>`
+  }
   return html`
     <main>
-      <div class="grid">
-        <div class="feed-container">
-          ${renderError(state, emit)}
-          ${state.userProfile ? renderPostForm(state, emit) : ''}
-          ${renderFeed(state, emit)}
-        </div>
+      ${renderHeader(state, emit)}
+
+      <div class="main-container">
         <div class="sidebar">
-          ${state.userProfile
-            ? renderProfile(state, emit, state.userProfile)
-            : renderProfileEditor(state, emit)}
+          ${renderProfile(state, emit, state.userProfile)}
+        </div>
+
+        <div class="main-content feed-container">
+          ${renderError(state, emit)}
+          ${renderPostForm(state, emit)}
+          ${renderFeed(state, emit)}
         </div>
       </div>
     </main>

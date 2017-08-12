@@ -1,6 +1,7 @@
 const html = require('choo/html')
 const renderFollowBtn = require('./follow-btn')
-const {getViewProfileURL, getAvatarUrl, getAvatarStyle} = require('../util')
+const renderAvatar = require('./avatar')
+const {getViewProfileURL} = require('../util')
 
 module.exports = function renderFollows (state, emit, profile) {
   if (profile.followProfiles.length) {
@@ -12,7 +13,7 @@ module.exports = function renderFollows (state, emit, profile) {
   } else {
     return html`
       <p class="follows">
-        Not following anybody.
+        ${state.userProfile.name} isn't following anyone.
       </p>
     `
   }
@@ -20,13 +21,20 @@ module.exports = function renderFollows (state, emit, profile) {
 
 function renderFollow (state, emit, profile) {
   return html`
-    <div class="profile">
-      <a href=${getViewProfileURL(profile)}><img class="avatar" src=${getAvatarUrl(profile)} style=${getAvatarStyle(profile)} /></a>
-      <div class="profile-info">
-        <h1 class="name"><a href=${getViewProfileURL(profile)}>${profile.name}</a></h1>
-        <div class="description">${profile.bio}</div>
-        <p>${renderFollowBtn(state, emit, profile)}</p>
+    <div class="profile-card minimal">
+      <div class="profile-card-header">
+        <a href=${getViewProfileURL(profile)}>
+          ${renderAvatar(profile)}
+        </a>
+
+        <div class="profile-card-info">
+          <h2 class="name">
+            <a href=${getViewProfileURL(profile)}>${profile.name}</a>
+          </h2>
+        </div>
       </div>
+      ${profile.bio ? html`<p class="description">${profile.bio}</p>` : ''}
+      ${renderFollowBtn(state, emit, profile)}
     </div>
   `
 }
