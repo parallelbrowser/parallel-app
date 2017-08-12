@@ -2,8 +2,8 @@ const html = require('choo/html')
 const loadingView = require('./loading')
 const renderError = require('../com/error')
 const renderHeader = require('../com/header')
-const renderPrescripts = require('../com/prescripts')
 const renderProfileCard = require('../com/profile-card')
+const renderPrescript = require('../com/prescript')
 
 module.exports = function shopView (state, emit) {
   if (!state.userProfile) {
@@ -14,6 +14,19 @@ module.exports = function shopView (state, emit) {
     state.loadProfile('dat://' + state.params.key, {getFollowProfiles: true})
     return loadingView(state, emit)
   }
+
+  // TCW CHANGES -- load user prescripts
+
+  if (!state.prescripts) {
+    state.loadUserPrescripts()
+    return loadingView(state, emit)
+  }
+
+  // TCW -- END
+
+  let prescripts = state.prescripts
+  console.log('prescripts', prescripts)
+
   return html`
     <main>
       ${renderHeader(state, emit, state.userProfile)}
@@ -23,7 +36,7 @@ module.exports = function shopView (state, emit) {
           ${renderProfileCard(state, emit, state.currentProfile)}
           ${renderError(state, emit)}
           <h1 class="heading subtle">Shop -- Gizmos for sale!</h1>
-          ${renderPrescripts(state, emit, state.currentProfile)}
+          <ul class="feed">${prescripts.map(p => renderPrescript(state, emit, p))}</ul>
         </div>
       </div>
     </main>

@@ -21,6 +21,7 @@ module.exports = function profileView (state, emit) {
     state.loadUserBroadcasts()
     return loadingView(state, emit)
   }
+
   var isEditMode = window.location.hash.endsWith('/edit')
   return html`
     <main>

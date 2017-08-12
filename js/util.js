@@ -62,6 +62,14 @@ exports.getViewBroadcastURL = function (broadcast) {
   return '/#broadcast/' + broadcast._url.slice('dat://'.length)
 }
 
+// TCW -- added url for prescript
+
+exports.getViewPrescriptURL = function (prescript) {
+  return '/#prescript/' + prescript._url.slice('dat://'.length)
+}
+
+// TCW -- END
+
 // TCW -- added url for workbench route
 
 exports.getWorkbenchURL = function (profile) {
