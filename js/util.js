@@ -68,6 +68,10 @@ exports.getViewPrescriptURL = function (prescript) {
   return '/#prescript/' + prescript._url.slice('dat://'.length)
 }
 
+exports.getViewSubscriptOriginURL = function (subscript) {
+  return '/#prescript/' + subscript.subscriptURL.slice('dat://'.length)
+}
+
 // TCW -- END
 
 // TCW -- added url for workbench route
@@ -80,6 +84,12 @@ exports.getViewShopURL = function (profile) {
   if (!profile) return ''
   var url = profile._origin ? profile._origin : profile
   return '/#shop/' + url.slice('dat://'.length)
+}
+
+exports.getViewSubscriptsURL = function (profile) {
+  if (!profile) return ''
+  var url = profile._origin ? profile._origin : profile
+  return '/#subscripts/' + url.slice('dat://'.length)
 }
 
 // TCW -- end

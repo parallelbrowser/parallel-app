@@ -34,6 +34,7 @@ app.route('/settings', require('./views/settings'))
 
 app.route('/workbench', require('./views/workbench'))
 app.route('/shop/:key', require('./views/shop'))
+app.route('/subscripts/:key', require('./views/subscripts'))
 app.route('/prescript/*', require('./views/prescript'))
 
 // TCW -- end

@@ -2,7 +2,7 @@ const html = require('choo/html')
 const renderFollowBtn = require('./follow-btn')
 const renderAvatar = require('./avatar')
 const renderEditProfileBtn = require('./edit-profile-btn')
-const {getViewProfileURL, getViewFollowsURL, getEditProfileURL, getViewShopURL, pluralize} = require('../util')
+const {getViewProfileURL, getViewFollowsURL, getViewShopURL, getViewSubscriptsURL, pluralize} = require('../util')
 
 module.exports = function renderProfileCard (state, emit, profile) {
   if (!profile) {
@@ -34,6 +34,11 @@ module.exports = function renderProfileCard (state, emit, profile) {
             <a class="stat" href=${getViewShopURL(profile)}>
               <span class="value"></span>
               <span class="label">Shop</span>
+            </a>
+            <span aria-hidden="true">•</span>
+            <a class="stat" href=${getViewSubscriptsURL(profile)}>
+              <span class="value"></span>
+              <span class="label">Gizmo Collection</span>
             </a>
           </div>
         </div>
