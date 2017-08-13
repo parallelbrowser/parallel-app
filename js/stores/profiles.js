@@ -74,6 +74,21 @@ module.exports = async function profileStore (state, emitter) {
     emitter.emit('render')
   }
 
+  state.toggleSubscribe = async prescript => {
+    try {
+      if (prescript.isSubscribed) {
+        await state.DB().unsubscribe(state.userProfile._origin, prescript._url)
+        prescript.isSubscribed = false
+      } else {
+        await state.DB().subscribe(state.userProfile._origin, prescript._url)
+        prescript.isSubscribed = true
+      }
+    } catch (e) {
+      state.error = e
+    }
+    emitter.emit('render')
+  }
+
   state.updateProfile = async (values) => {
     try {
       // create the profile if needed
@@ -131,16 +146,11 @@ async function readProfile (state, url, opts = {}) {
   profile.numBroadcasts = await db.countBroadcasts({author: url})
   profile.isFollowed = await getIsFollowed(state, profile)
 
-  // TCW -- appends subscripts to profile
-
-  profile.subscripts = await db.listSubscripts(url)
-
-  // END
-
   if (opts.getFollowProfiles) {
     profile.followProfiles = await Promise.all(profile.followUrls.map(db.getProfile))
     profile.followProfiles = profile.followProfiles.filter(Boolean)
     profile.followProfiles.forEach(s => { s.isFollowed = true })
   }
+
   return profile
 }

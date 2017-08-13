@@ -24,11 +24,9 @@ module.exports = function shopView (state, emit) {
 
   let prescripts = state.prescripts
   console.log('subscripts', state.userProfile.subscripts)
-  const subscriptURLs = state.userProfile.subscripts.map(s => {
-    return s.subscriptURL
-  })
+  console.log('profile', state.userProfile)
   prescripts = prescripts.map(p => {
-    p.isSubscribed = subscriptURLs.indexOf(p._url) !== -1
+    p.isSubscribed = state.userProfile.subscriptURLs.indexOf(p._url) !== -1
     return p
   })
   console.log('prescripts', prescripts)
