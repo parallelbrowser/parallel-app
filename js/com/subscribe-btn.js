@@ -4,7 +4,6 @@ const html = require('choo/html')
 
 module.exports = function renderSubscribeBtn (state, emit, prescript) {
   console.log('prescript in button', prescript)
-  console.log('state db in button', state.DB)
   if (prescript.isSubscribed) {
     return html`
       <button id="subscribe-toggle" class="btn center" onmouseout=${onShowSubscribedButton} onmouseover=${onShowUnsubcsribeButton} onclick=${toggleSubscript}>Subscribed<i class="fa fa-check"></i></button>

@@ -1,15 +1,23 @@
 module.exports = function newSubscriptStore (state, emitter) {
-  state.toggleSubscript = async (values) => {
-    console.log('values in subscript save', values)
+  state.toggleSubscript = async (prescript) => {
+    console.log('values in subscript save', prescript)
     try {
-      await state.DB().subscript(state.userProfile._origin, {
-        subscriptOrigin: values._origin,
-        subscriptOriginUrl: values._url,
-        subscriptID: values.prescriptID
-      })
+      if (prescript.isSubscribed) {
+        console.log('user prof origin', state.userProfile._origin)
+        console.log('prescript url in sub store', prescript._url)
+        await state.DB().removeSubscript(prescript._url)
+        prescript.isSubscribed = false
+      } else {
+        await state.DB().subscript(state.userProfile._origin, {
+          subscriptOrigin: prescript._origin,
+          subscriptURL: prescript._url
+        })
+        prescript.isSubscribed = true
+      }
     } catch (e) {
       console.error(e)
       state.error = e
     }
   }
+  emitter.emit('render')
 }

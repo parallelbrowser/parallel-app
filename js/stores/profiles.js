@@ -62,10 +62,10 @@ module.exports = async function profileStore (state, emitter) {
   state.toggleFollow = async profile => {
     try {
       if (profile.isFollowed) {
-        await state.DB().unfollow(state.userProfile._origin, profile._origin)
+        await state.DB().unfollow(state.userProfile._origin, profile._origin, profile.name)
         profile.isFollowed = false
       } else {
-        await state.DB().follow(state.userProfile._origin, profile._origin)
+        await state.DB().follow(state.userProfile._origin, profile._origin, profile.name)
         profile.isFollowed = true
       }
     } catch (e) {
@@ -130,6 +130,13 @@ async function readProfile (state, url, opts = {}) {
   var profile = await db.getProfile(url)
   profile.numBroadcasts = await db.countBroadcasts({author: url})
   profile.isFollowed = await getIsFollowed(state, profile)
+
+  // TCW -- appends subscripts to profile
+
+  profile.subscripts = await db.listSubscripts(url)
+
+  // END
+
   if (opts.getFollowProfiles) {
     profile.followProfiles = await Promise.all(profile.followUrls.map(db.getProfile))
     profile.followProfiles = profile.followProfiles.filter(Boolean)

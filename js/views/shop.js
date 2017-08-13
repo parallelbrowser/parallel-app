@@ -22,10 +22,18 @@ module.exports = function shopView (state, emit) {
     return loadingView(state, emit)
   }
 
-  // TCW -- END
-
   let prescripts = state.prescripts
+  console.log('subscripts', state.userProfile.subscripts)
+  const subscriptURLs = state.userProfile.subscripts.map(s => {
+    return s.subscriptURL
+  })
+  prescripts = prescripts.map(p => {
+    p.isSubscribed = subscriptURLs.indexOf(p._url) !== -1
+    return p
+  })
   console.log('prescripts', prescripts)
+
+  // TCW -- END
 
   const showDetails = false
 
