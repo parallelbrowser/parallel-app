@@ -23,8 +23,8 @@ module.exports = function shopView (state, emit) {
   }
 
   let prescripts = state.prescripts
-  console.log('subscripts', state.userProfile.subscripts)
-  console.log('profile', state.userProfile)
+  console.log('subscripts in shop', state.userProfile.subscripts)
+  console.log('profile in shop', state.userProfile)
   prescripts = prescripts.map(p => {
     p.isSubscribed = state.userProfile.subscriptURLs.indexOf(p._url) !== -1
     return p

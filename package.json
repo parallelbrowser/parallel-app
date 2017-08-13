@@ -32,7 +32,7 @@
     "debounce": "^1.0.2",
     "moment": "^2.18.1",
     "parallel-api": "0.0.1",
-    "parallel-scratch-api": "^0.1.7"
+    "parallel-scratch-api": "^0.2.8"
   },
   "devDependencies": {
     "less": "^2.7.2"

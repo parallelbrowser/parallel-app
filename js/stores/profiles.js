@@ -80,12 +80,21 @@ module.exports = async function profileStore (state, emitter) {
         await state.DB().unsubscribe(state.userProfile._origin, prescript._url)
         prescript.isSubscribed = false
       } else {
-        await state.DB().subscribe(state.userProfile._origin, prescript._url)
+        await state.DB().subscribe(
+          state.userProfile._origin,
+          prescript._url,
+          prescript._origin,
+          prescript.prescriptName,
+          prescript.prescriptInfo,
+          prescript.prescriptJS,
+          prescript.prescriptCSS
+        )
         prescript.isSubscribed = true
       }
     } catch (e) {
       state.error = e
     }
+    console.log('user profile in profiles', state.userProfile)
     emitter.emit('render')
   }
 
@@ -145,7 +154,6 @@ async function readProfile (state, url, opts = {}) {
   var profile = await db.getProfile(url)
   profile.numBroadcasts = await db.countBroadcasts({author: url})
   profile.isFollowed = await getIsFollowed(state, profile)
-
   if (opts.getFollowProfiles) {
     profile.followProfiles = await Promise.all(profile.followUrls.map(db.getProfile))
     profile.followProfiles = profile.followProfiles.filter(Boolean)
