@@ -1,4 +1,6 @@
-const NexusAPI = require('dat-nexus-api')
+/* globals DatArchive */
+
+const NexusAPI = require('parallel-scratch-api')
 
 module.exports = async function dbStore (state, emitter) {
   var userURL = null
@@ -18,6 +20,7 @@ module.exports = async function dbStore (state, emitter) {
       // check if the target is the user, or is followed by the user
       // if it is, give the main userdb
       // otherwise, give the cachedb
+
       if (typeof target === 'object' && target._origin) {
         target = target._origin
       }

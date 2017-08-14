@@ -3,9 +3,9 @@
 const html = require('choo/html')
 const loadingView = require('./loading')
 const renderError = require('../com/error')
+const renderHeader = require('../com/header')
 const renderFeed = require('../com/feed')
-const renderProfile = require('../com/profile')
-const renderProfileEditor = require('../com/profile-editor')
+const renderProfileCard = require('../com/profile-card')
 
 module.exports = function profileView (state, emit) {
   if (!state.isAppLoaded) {
@@ -20,20 +20,20 @@ module.exports = function profileView (state, emit) {
     state.loadUserBroadcasts()
     return loadingView(state, emit)
   }
-  var isEditMode = window.location.hash.endsWith('/edit')
+
   return html`
     <main>
-      <div class="grid">
-        <div class="feed-container">
-          ${renderError(state, emit)}
-          <p><a href="#"><i class="fa fa-caret-left"></i> Back to feed</a></p>
-          <h2>${state.currentProfile.name + "'"}s broadcasts</h2>
-          ${renderFeed(state, emit)}
-        </div>
-        <div class="sidebar">
-          ${isEditMode
-            ? renderProfileEditor(state, emit, state.currentProfile)
-            : renderProfile(state, emit, state.currentProfile)}
+      ${renderHeader(state, emit, state.userProfile)}
+
+      <div class="main-container">
+        <div class="main-content center">
+
+          ${renderProfileCard(state, emit, state.currentProfile)}
+
+          <div class="feed-container">
+            ${renderError(state, emit)}
+            ${renderFeed(state, emit)}
+          </div>
         </div>
       </div>
     </main>

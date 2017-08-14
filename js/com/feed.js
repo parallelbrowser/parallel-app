@@ -4,21 +4,15 @@ const renderBroadcast = require('./broadcast')
 module.exports = function renderFeed (state, emit) {
   if (!state.broadcasts) {
     return html`
-      <p class="feed">
-        Loading...
-      </p>
-    `
-  } else if (state.broadcasts.length) {
-    return html`
-      <ul class="feed">
-        ${state.broadcasts.map(b => renderBroadcast(emit, b))}
-      </ul>
-    `
-  } else {
-    return html`
-      <p class="feed">
-        No broadcasts.
+      <p class="card">
+        <i class="fa fa-spinner"></i> Loading feed...
       </p>
     `
   }
+
+  let broadcasts = state.broadcasts.filter(b => !(b.threadRoot || b.threadParent))
+
+  return html`
+    <ul class="feed">${broadcasts.map(b => renderBroadcast(state, emit, b))}</ul>
+  `
 }

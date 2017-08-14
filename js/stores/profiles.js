@@ -1,4 +1,4 @@
-/* globals DatArchive */
+/* globals DatArchive FileReader */
 
 const {getUserProfileURL, setUserProfileURL, getViewProfileURL, getIsFollowed} = require('../util')
 
@@ -50,9 +50,9 @@ module.exports = async function profileStore (state, emitter) {
     emitter.emit('render')
   })
 
-  state.loadProfile = async (url, {getFollowProfiles} = {}) => {
+  state.loadProfile = async (url, {getFollowProfiles, getSubscripts} = {}) => {
     try {
-      state.currentProfile = await readProfile(state, url, {getFollowProfiles})
+      state.currentProfile = await readProfile(state, url, {getFollowProfiles, getSubscripts})
     } catch (e) {
       state.error = e
     }
@@ -62,15 +62,39 @@ module.exports = async function profileStore (state, emitter) {
   state.toggleFollow = async profile => {
     try {
       if (profile.isFollowed) {
-        await state.DB().unfollow(state.userProfile._origin, profile._origin)
+        await state.DB().unfollow(state.userProfile._origin, profile._origin, profile.name)
         profile.isFollowed = false
       } else {
-        await state.DB().follow(state.userProfile._origin, profile._origin)
+        await state.DB().follow(state.userProfile._origin, profile._origin, profile.name)
         profile.isFollowed = true
       }
     } catch (e) {
       state.error = e
     }
+    emitter.emit('render')
+  }
+
+  state.toggleSubscribe = async prescript => {
+    try {
+      if (prescript.isSubscribed) {
+        await state.DB().unsubscribe(state.userProfile._origin, prescript._url)
+        prescript.isSubscribed = false
+      } else {
+        await state.DB().subscribe(
+          state.userProfile._origin,
+          prescript._url,
+          prescript._origin,
+          prescript.prescriptName,
+          prescript.prescriptInfo,
+          prescript.prescriptJS,
+          prescript.prescriptCSS
+        )
+        prescript.isSubscribed = true
+      }
+    } catch (e) {
+      state.error = e
+    }
+    console.log('user profile in profiles', state.userProfile)
     emitter.emit('render')
   }
 
@@ -96,8 +120,7 @@ module.exports = async function profileStore (state, emitter) {
       await state.DB().setProfile(archive.url, values)
 
       // reload
-      state.userProfile = await readProfile(state, archive.url, {getFollowProfiles: true})
-      console.log(state.userProfile)
+      state.userProfile = await readProfile(state, archive.url, {getFollowProfiles: true, getSubscripts: true})
     } catch (e) {
       console.error(e)
       state.error = e
@@ -105,6 +128,23 @@ module.exports = async function profileStore (state, emitter) {
       return
     }
     emitter.emit('pushState', getViewProfileURL(state.userProfile))
+  }
+
+  state.setAvatar = async (archive, file) => {
+    // get file extension
+    if (!file.type.startsWith('image/')) {
+      // TODO wrong image type
+      return
+    }
+    const extension = file.type.slice('image/'.length)
+    const reader = new FileReader()
+    reader.onload = async () => {
+      await state.DB().setAvatar(archive, reader.result, extension)
+    }
+    reader.readAsArrayBuffer(file)
+
+    emitter.emit('pushState', getViewProfileURL(state.userProfile))
+    emitter.emit('render')
   }
 }
 
@@ -119,5 +159,6 @@ async function readProfile (state, url, opts = {}) {
     profile.followProfiles = profile.followProfiles.filter(Boolean)
     profile.followProfiles.forEach(s => { s.isFollowed = true })
   }
+
   return profile
 }

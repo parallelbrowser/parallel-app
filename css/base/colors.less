@@ -17,6 +17,7 @@
 @color-text--transparent: fadeout(#000, 80%);
 @color-text--subtle: fadeout(#000, 90%);
 @color-link: mix(@color-text, @blue, 10%);
+@color-link: #0a5aa0;
 
 // Buttons
 @color-button: tint(@color-text, 20%);
@@ -63,29 +64,48 @@
 @background-dropdown-menu-bar: #fff;
 @background-dropdown-menu-bar--hover: shade(#fff, 10%);
 
-// Popups
-@border-popup: shade(#fff, 25%);
+@color-bg: rgba(244, 246, 249, .35);
+@color-bg: rgb(248, 251, 255);
+@color-bg: #f7fbff;
+@color-bg--hover: rgb(244, 246, 249);
+@color-bg--header: rgb(247, 249, 251);
+@color-bg--dropdown-menu-hover: rgb(247, 249, 251);
 
-// Changes
-@color-change--add: mix(@color-text, @green, 15%);
-@color-change--mod: mix(@color-text, @yellow, 10%);
-@color-change--del: mix(@color-text, @red, 15%);
+// text
+@color-text--brand: rgb(21, 137, 238);
+@color-text: mix(#000, rgb(22, 50, 92), 50%);
+@color-text--muted: mix(#000, rgb(84, 105, 141), 25%);
+@color-text--transparent: fadeout(@color-text, 45%);
+@color-text--placeholder: fadeout(@color-text, 45%);
+@color-text--btn: rgb(0, 112, 210);
+@color-text--link: rgb(0, 112, 210);
+@color-text--link-hover: rgb(0, 95, 178);
+@color-text--warning: rgb(255, 183, 93);
 
-// Custom progress bar
-@background-progressbar: shade(#fff, 25%);
-@background-progressbar--value: mix(#fff, @blue, 15%);
+// modals
+@color-bg--modal: #fff;
+@color-bg--modal-overlay: rgba(126, 140, 153, 0.8);
 
-// Shell window
-@background-shell-window: shade(#fff, 3%);// #fafafa;
-@background-shell-window--unfocused: shade(#fff, 3%);
-@background-url-input: #fff;
-@background-tab: shade(#fff, 13%);
-@background-tab--unfocused: shade(#fff, 8%);
-@background-tab--current: @background-shell-window;
-@background-tab--hover: #f0f0f0;
-@background-toolbar-btn--hover: #e0e0e0;
-@background-close-tab--active: #f17649;
-@border-shell-window: #aaa;
-@color-toolbar-btn: #666;
-@color-toolbar-btn--disabled: #aaa;
-@color-tab: #222;
+// buttons
+@color-border--btn: rgb(216, 221, 230);
+@color-bg--btn: #fff;
+@color-bg--btn-hover: rgb(244, 246, 249);
+@color-bg--btn-primary: rgb(0, 112, 210);
+@color-bg--btn-primary-hover: rgb(0, 95, 178);
+@color-bg--btn-primary-disabled: rgb(224, 229, 238);
+@color-bg--btn-success: rgb(75, 202, 129);
+@color-bg--btn-success-hover: rgb(4, 132, 75);
+
+// inputs
+@color-border--input: rgb(216, 221, 230);
+
+// borders
+@color-border--primary: rgb(21, 137, 238);
+@color-border--primary-hover: rgb(0, 112, 210);
+@color-border--success: rgb(75, 202, 129);
+@color-border--success-hover: rgb(4, 132, 75);
+@color-border--destructive: rgb(194, 57, 52);
+@color-border--destructive-hover: rgb(166, 26, 20);
+@color-border--warning: rgb(255, 183, 93);
+@color-border: rgb(216, 221, 230);
+@color-border--card: rgb(216, 221, 230);
