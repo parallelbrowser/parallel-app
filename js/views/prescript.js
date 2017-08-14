@@ -3,7 +3,6 @@ const loadingView = require('./loading')
 const renderError = require('../com/error')
 const renderHeader = require('../com/header')
 const renderPrescript = require('../com/prescript')
-const renderProfile = require('../com/profile-card')
 const {getViewShopURL} = require('../util')
 
 module.exports = function broadcastView (state, emit) {

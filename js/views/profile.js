@@ -6,7 +6,6 @@ const renderError = require('../com/error')
 const renderHeader = require('../com/header')
 const renderFeed = require('../com/feed')
 const renderProfileCard = require('../com/profile-card')
-const renderProfileEditor = require('../com/profile-editor')
 
 module.exports = function profileView (state, emit) {
   if (!state.isAppLoaded) {
@@ -22,7 +21,6 @@ module.exports = function profileView (state, emit) {
     return loadingView(state, emit)
   }
 
-  var isEditMode = window.location.hash.endsWith('/edit')
   return html`
     <main>
       ${renderHeader(state, emit, state.userProfile)}

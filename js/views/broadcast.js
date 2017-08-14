@@ -5,7 +5,6 @@ const loadingView = require('./loading')
 const renderError = require('../com/error')
 const renderHeader = require('../com/header')
 const renderBroadcast = require('../com/broadcast')
-const renderProfile = require('../com/profile-card')
 const {getViewProfileURL} = require('../util')
 
 module.exports = function broadcastView (state, emit) {
