@@ -39,7 +39,7 @@ module.exports = function renderWorkbench (state, emit, profile) {
 
           <p>
             <a href=${getViewProfileURL(profile)} class="btn">Cancel</a>
-            <button type="submit" class="btn primary"><a href=${getViewShopURL(profile)}>Save</a></button>
+            <button type="submit" class="btn primary">Save</button>
           </p>
         </form>
       </div>
