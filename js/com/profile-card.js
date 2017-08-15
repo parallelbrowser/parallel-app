@@ -11,6 +11,8 @@ module.exports = function renderProfileCard (state, emit, profile) {
 
   var numFollows = profile.follows ? profile.follows.length : 0
   var isUser = profile._origin === state.userProfile._origin
+
+  // DZ - change layout <br></br>
   return html`
     <div class="profile-card">
       <div class="profile-card-header">
