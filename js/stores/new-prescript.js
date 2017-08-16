@@ -1,3 +1,5 @@
+const {getViewShopURL} = require('../util')
+
 module.exports = function newPrescriptStore (state, emitter) {
   state.savePrescript = async (values) => {
     console.log('values in save', values)
@@ -7,5 +9,7 @@ module.exports = function newPrescriptStore (state, emitter) {
       console.error(e)
       state.error = e
     }
+    // DZ - redirect to shop page
+    emitter.emit('pushState', getViewShopURL(state.userProfile))
   }
 }

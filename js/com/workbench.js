@@ -1,7 +1,7 @@
 /* globals FileReader */
 
 const html = require('choo/html')
-const {getViewProfileURL, getAvatarStyle} = require('../util')
+const {getViewProfileURL, getAvatarStyle, getViewShopURL} = require('../util')
 
 module.exports = function renderWorkbench (state, emit, profile) {
   var avatarStyle = state.tmpAvatarURL ? `background-image: url(${state.tmpAvatarURL})` : getAvatarStyle(profile)
@@ -61,11 +61,18 @@ module.exports = function renderWorkbench (state, emit, profile) {
   async function onSubmit (e) {
     e.preventDefault()
 
-    state.savePrescript({
+    // DZ - add await so the prescript is actually saved
+    await state.savePrescript({
       prescriptName: e.target.prescriptName.value || '',
       prescriptInfo: e.target.prescriptInfo.value || '',
       prescriptJS: e.target.prescriptJS.value || '',
       prescriptCSS: e.target.prescriptCSS.value || ''
     })
+
+    document.getElementById('prescriptName').value='';
+    document.getElementById('prescriptInfo').value='';
+    document.getElementById('prescriptJS').value='';
+    document.getElementById('prescriptCSS').value='';
   }
+
 }
