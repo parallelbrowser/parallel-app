@@ -40,7 +40,7 @@ module.exports = function shopView (state, emit) {
         <div class="main-content center">
           ${renderProfileCard(state, emit, state.currentProfile)}
           ${renderError(state, emit)}
-          <h1 class="heading subtle">Shop -- Gizmos for sale!</h1>
+          <h1 class="heading subtle">Tom's Gizmo Shop</h1>
           <ul class="feed">${prescripts.map(p => renderPrescript(state, emit, p, showDetails))}</ul>
         </div>
       </div>

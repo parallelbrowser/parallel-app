@@ -38,7 +38,7 @@ module.exports = function renderProfileCard (state, emit, profile) {
             <span aria-hidden="true">•</span>
             <a class="stat" href=${getViewSubscriptsURL(profile)}>
               <span class="value"></span>
-              <span class="label">Gizmo Collection</span>
+              <span class="label">Collection</span>
             </a>
           </div>
         </div>
