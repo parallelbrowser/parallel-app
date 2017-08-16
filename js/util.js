@@ -48,9 +48,7 @@ exports.getViewProfileURL = function (profile) {
 }
 
 exports.getEditProfileURL = function (profile) {
-  var url = profile._origin ? profile._origin : profile
   return '/#settings'
-  // return '/#profile/' + url.slice('dat://'.length) + '/edit'
 }
 
 exports.getViewFollowsURL = function (profile) {
@@ -62,19 +60,14 @@ exports.getViewBroadcastURL = function (broadcast) {
   return '/#broadcast/' + broadcast._url.slice('dat://'.length)
 }
 
+exports.getIsFollowed = async function (state, profile) {
+  if (state.userProfile && profile._origin !== state.userProfile._origin) {
+    return await state.DB().isFollowing(state.userProfile._origin, profile._origin)
+  }
+  return false
+}
+
 // TCW -- added url for prescript
-
-exports.getViewPrescriptURL = function (prescript) {
-  return '/#prescript/' + prescript._url.slice('dat://'.length)
-}
-
-exports.getViewSubscriptOriginURL = function (subscript) {
-  return '/#prescript/' + subscript.subscriptURL.slice('dat://'.length)
-}
-
-// TCW -- END
-
-// TCW -- added url for workbench route
 
 exports.getWorkbenchURL = function (profile) {
   return '/#workbench'
@@ -86,17 +79,28 @@ exports.getViewShopURL = function (profile) {
   return '/#shop/' + url.slice('dat://'.length)
 }
 
+exports.getViewPrescriptURL = function (prescript) {
+  return '/#prescript/' + prescript._url.slice('dat://'.length)
+}
+
+exports.getViewSubscriptOriginURL = function (subscript) {
+  return '/#prescript/' + subscript.subscriptURL.slice('dat://'.length)
+}
+
 exports.getViewSubscriptsURL = function (profile) {
   if (!profile) return ''
   var url = profile._origin ? profile._origin : profile
   return '/#subscripts/' + url.slice('dat://'.length)
 }
 
-// TCW -- end
-
-exports.getIsFollowed = async function (state, profile) {
-  if (state.userProfile && profile._origin !== state.userProfile._origin) {
-    return await state.DB().isFollowing(state.userProfile._origin, profile._origin)
-  }
-  return false
+exports.getViewPostscriptsURL = function (profile) {
+  if (!profile) return ''
+  var url = profile._origin ? profile._origin : profile
+  return '/#postscripts/' + url.slice('dat://'.length)
 }
+
+exports.getViewPostscriptDetailURL = function (postscript) {
+  return '/#postscript/' + postscript._url.slice('dat://'.length)
+}
+
+// TCW -- end
