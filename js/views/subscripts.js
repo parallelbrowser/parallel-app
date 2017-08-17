@@ -22,7 +22,7 @@ module.exports = function subscriptsView (state, emit) {
         <div class="main-content center">
           ${renderProfileCard(state, emit, state.currentProfile)}
           ${renderError(state, emit)}
-          <h1 class="heading subtle">Gizmo Collection</h1>
+          <h1 class="heading subtle">Gizmos</h1>
           ${renderSubscripts(state, emit, state.currentProfile)}
         </div>
       </div>

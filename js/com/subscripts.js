@@ -11,7 +11,7 @@ module.exports = function renderSubscripts (state, emit, profile) {
   } else {
     return html`
       <p class="follows">
-        ${state.userProfile.name} is not using any gizmos.
+        ${state.currentProfile.name} is not using any gizmos.
       </p>
     `
   }

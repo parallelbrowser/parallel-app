@@ -5,7 +5,7 @@ const renderHeader = require('../com/header')
 const renderPrescript = require('../com/prescript')
 const {getViewShopURL} = require('../util')
 
-module.exports = function broadcastView (state, emit) {
+module.exports = function prescriptView (state, emit) {
   if (!state.isAppLoaded) {
     return loadingView(state, emit)
   }
