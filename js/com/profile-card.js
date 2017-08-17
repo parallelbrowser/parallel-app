@@ -2,7 +2,7 @@ const html = require('choo/html')
 const renderFollowBtn = require('./follow-btn')
 const renderAvatar = require('./avatar')
 const renderEditProfileBtn = require('./edit-profile-btn')
-const {getViewProfileURL, getViewFollowsURL, getViewShopURL, getViewSubscriptsURL, getViewPostscriptsURL, pluralize} = require('../util')
+const {getViewProfileURL, getViewFollowsURL, getViewShopURL, getViewSubscriptsURL, pluralize} = require('../util')
 
 module.exports = function renderProfileCard (state, emit, profile) {
   if (!profile) {
@@ -30,7 +30,7 @@ module.exports = function renderProfileCard (state, emit, profile) {
             <span aria-hidden="true">•</span>
             <a class="stat" href=${getViewProfileURL(profile)}>
               <span class="value">${profile.numBroadcasts}></span>
-              <span class="label">${pluralize(profile.numBroadcasts, 'broadcast')}</span>
+              <span class="label">${pluralize(profile.numBroadcasts, 'widget')}</span>
             </a>
             <span aria-hidden="true">•</span>
             <a class="stat" href=${getViewShopURL(profile)}>
@@ -40,12 +40,7 @@ module.exports = function renderProfileCard (state, emit, profile) {
             <span aria-hidden="true">•</span>
             <a class="stat" href=${getViewSubscriptsURL(profile)}>
               <span class="value"></span>
-              <span class="label">Collection</span>
-            </a>
-            <span aria-hidden="true">•</span>
-            <a class="stat" href=${getViewPostscriptsURL(profile)}>
-              <span class="value"></span>
-              <span class="label">Widgets</span>
+              <span class="label">Gizmos</span>
             </a>
           </div>
         </div>

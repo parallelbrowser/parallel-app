@@ -10,9 +10,8 @@ module.exports = function feedStore (state, emitter) {
 
   state.loadMainFeed = async () => {
     try {
-      state.broadcasts = await state.DB().listBroadcasts({
+      state.broadcasts = await state.DB().listPostscripts({
         fetchAuthor: true,
-        fetchReplies: true,
         countVotes: true,
         reverse: true
       })
@@ -24,9 +23,8 @@ module.exports = function feedStore (state, emitter) {
 
   state.loadUserBroadcasts = async () => {
     try {
-      state.broadcasts = await state.DB(state.currentProfile).listBroadcasts({
+      state.broadcasts = await state.DB(state.currentProfile).listPostscripts({
         fetchAuthor: true,
-        fetchReplies: true,
         countVotes: true,
         reverse: true,
         author: state.currentProfile._origin

@@ -18,7 +18,7 @@ app.use(require('./stores/header'))
 app.use(require('./stores/new-prescript'))
 app.use(require('./stores/prescripts'))
 app.use(require('./stores/subscripts'))
-app.use(require('./stores/postscripts'))
+// app.use(require('./stores/postscripts'))
 
 // end
 
@@ -40,8 +40,9 @@ app.route('/workbench', require('./views/workbench'))
 app.route('/shop/:key', require('./views/shop'))
 app.route('/subscripts/:key', require('./views/subscripts'))
 app.route('/prescript/*', require('./views/prescript'))
-app.route('/postscripts/:key', require('./views/postscripts'))
-app.route('/postscript/*', require('./views/postscript'))
+// app.route('/postscript-feed', require('./views/postscript-feed'))
+// app.route('/postscripts/:key', require('./views/postscripts'))
+// app.route('/postscript/*', require('./views/postscript'))
 
 // end
 
