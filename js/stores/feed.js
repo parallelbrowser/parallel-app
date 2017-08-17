@@ -9,6 +9,7 @@ module.exports = function feedStore (state, emitter) {
   })
 
   state.loadMainFeed = async () => {
+    console.log('db in loadMainFeed', state.DB())
     try {
       state.broadcasts = await state.DB().listPostscripts({
         fetchAuthor: true,
@@ -16,6 +17,7 @@ module.exports = function feedStore (state, emitter) {
         reverse: true
       })
     } catch (e) {
+      console.log('in loadMainfeed', e);
       state.error = e
     }
     emitter.emit('render')
@@ -30,6 +32,7 @@ module.exports = function feedStore (state, emitter) {
         author: state.currentProfile._origin
       })
     } catch (e) {
+      console.log('in loadUserBroadcasts', e);
       state.error = e
     }
     emitter.emit('render')
