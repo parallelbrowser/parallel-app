@@ -2,14 +2,12 @@ const html = require('choo/html')
 const renderFollowBtn = require('./follow-btn')
 const renderAvatar = require('./avatar')
 const renderEditProfileBtn = require('./edit-profile-btn')
-const {getViewProfileURL, getViewFollowsURL, getViewShopURL, getViewSubscriptsURL, pluralize} = require('../util')
+const {getViewProfileURL, getViewFollowsURL, getViewShopURL, getViewSubscriptsURL} = require('../util')
 
 module.exports = function renderProfileCard (state, emit, profile) {
   if (!profile) {
     return ''
   }
-
-  var numFollows = profile.follows ? profile.follows.length : 0
   var isUser = profile._origin === state.userProfile._origin
 
   // DZ - change layout <br></br>
@@ -24,23 +22,21 @@ module.exports = function renderProfileCard (state, emit, profile) {
           <h1 class="name"><a href=${getViewProfileURL(profile)}>${profile.name}</a></h1>
           <div class="profile-card-stats">
             <a class="stat" href=${getViewFollowsURL(profile)}>
-              <span class="value">${numFollows}</span>
-              <span class="label">following</span>
+              <span class="label">Following</span>
             </a>
             <span aria-hidden="true">•</span>
             <a class="stat" href=${getViewProfileURL(profile)}>
-              <span class="value">${profile.numBroadcasts}></span>
-              <span class="label">${pluralize(profile.numBroadcasts, 'widget')}</span>
-            </a>
-            <span aria-hidden="true">•</span>
-            <a class="stat" href=${getViewShopURL(profile)}>
-              <span class="value"></span>
-              <span class="label">Shop</span>
+              <span class="label">Widgets</span>
             </a>
             <span aria-hidden="true">•</span>
             <a class="stat" href=${getViewSubscriptsURL(profile)}>
               <span class="value"></span>
               <span class="label">Gizmos</span>
+            </a>
+            <span aria-hidden="true">•</span>
+            <a class="stat" href=${getViewShopURL(profile)}>
+              <span class="value"></span>
+              <span class="label">Shop</span>
             </a>
           </div>
         </div>

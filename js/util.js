@@ -93,14 +93,4 @@ exports.getViewSubscriptsURL = function (profile) {
   return '/#subscripts/' + url.slice('dat://'.length)
 }
 
-exports.getViewPostscriptsURL = function (profile) {
-  if (!profile) return ''
-  var url = profile._origin ? profile._origin : profile
-  return '/#postscripts/' + url.slice('dat://'.length)
-}
-
-exports.getViewPostscriptDetailURL = function (postscript) {
-  return '/#postscript/' + postscript._url.slice('dat://'.length)
-}
-
 // TCW -- end

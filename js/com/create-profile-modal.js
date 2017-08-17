@@ -1,3 +1,5 @@
+/* globals DatArchive */
+
 const html = require('choo/html')
 
 module.exports = function createProfileModal (state, emit, profile) {
@@ -9,7 +11,7 @@ module.exports = function createProfileModal (state, emit, profile) {
         </div>
 
         <h1 class="modal-title">
-          Welcome to Nexus!
+          Welcome to Parallel!
         </h1>
 
         <p class="modal-subtitle">

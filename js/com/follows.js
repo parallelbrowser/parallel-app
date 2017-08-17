@@ -13,7 +13,7 @@ module.exports = function renderFollows (state, emit, profile) {
   } else {
     return html`
       <p class="follows">
-        ${state.userProfile.name} isn't following anyone.
+        ${state.currentProfile.name} isn't following anyone.
       </p>
     `
   }

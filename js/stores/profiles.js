@@ -109,8 +109,8 @@ module.exports = async function profileStore (state, emitter) {
     try {
       // create the profile if needed
       var archive
-      const title = `${values.name || 'Unnamed'} (Nexus Profile)`
-      const description = 'User profile for Nexus'
+      const title = `${values.name || 'Unnamed'} (Parallel Profile)`
+      const description = 'User profile for Parallel'
       if (!state.userProfile) {
         archive = await DatArchive.create({title, description})
         setUserProfileURL(archive.url)

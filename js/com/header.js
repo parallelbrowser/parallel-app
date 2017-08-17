@@ -1,6 +1,6 @@
 const html = require('choo/html')
 const renderAvatar = require('./avatar')
-const {getViewProfileURL, getEditProfileURL, getWorkbenchURL} = require('../util')
+const {getViewProfileURL, getEditProfileURL, getWorkbenchURL, getViewSubscriptsURL, getViewShopURL} = require('../util')
 
 module.exports = function renderFeed (state, emit) {
   return html`
@@ -16,14 +16,20 @@ module.exports = function renderFeed (state, emit) {
         ${state.userProfile ? html`
           <div class="avatar-card dropdown-menu-container" onclick=${onToggleDropdown}>
             <div class="dropdown-menu ${state.isDropdownOpen ? '' : 'hidden'}">
-              <a href=${getViewProfileURL(state.userProfile)} class="dropdown-menu-item">
-                View profile
-              </a>
               <a href=${getEditProfileURL(state.userProfile)} class="dropdown-menu-item">
                 Edit profile
               </a>
+              <a href=${getViewProfileURL(state.userProfile)} class="dropdown-menu-item">
+                Gizmos
+              </a>
+              <a href=${getViewSubscriptsURL(state.userProfile)} class="dropdown-menu-item">
+                Gizmos
+              </a>
+              <a href=${getViewShopURL(state.userProfile)} class="dropdown-menu-item">
+                Shop
+              </a>
               <a href=${getWorkbenchURL(state.userProfile)} class="dropdown-menu-item">
-                Your Workbench
+                Workbench
               </a>
               <a href="https://github.com/beakerbrowser/dat-nexus-app/issues" class="dropdown-menu-item">
                 Report an issue
