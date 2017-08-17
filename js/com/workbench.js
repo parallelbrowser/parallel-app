@@ -1,7 +1,7 @@
 /* globals FileReader */
 
 const html = require('choo/html')
-const {getViewProfileURL, getAvatarStyle, getViewShopURL} = require('../util')
+const {getViewProfileURL, getAvatarStyle} = require('../util')
 
 module.exports = function renderWorkbench (state, emit, profile) {
   var avatarStyle = state.tmpAvatarURL ? `background-image: url(${state.tmpAvatarURL})` : getAvatarStyle(profile)
@@ -69,10 +69,9 @@ module.exports = function renderWorkbench (state, emit, profile) {
       prescriptCSS: e.target.prescriptCSS.value || ''
     })
 
-    document.getElementById('prescriptName').value='';
-    document.getElementById('prescriptInfo').value='';
-    document.getElementById('prescriptJS').value='';
-    document.getElementById('prescriptCSS').value='';
+    document.getElementById('prescriptName').value = ''
+    document.getElementById('prescriptInfo').value = ''
+    document.getElementById('prescriptJS').value = ''
+    document.getElementById('prescriptCSS').value = ''
   }
-
 }

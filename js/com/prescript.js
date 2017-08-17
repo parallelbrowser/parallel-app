@@ -7,8 +7,9 @@ const renderAvatar = require('./avatar')
 const {getViewProfileURL, getViewPrescriptURL, niceDate} = require('../util')
 
 module.exports = function renderPrescript (state, emit, prescript, showDetails) {
+  console.log('prescript in prescriptjs', prescript)
   return html`
-    <div class="broadcast parent}">
+    <div class="broadcast">
       <div class="broadcast-content">
         <a class="avatar-container" href=${getViewProfileURL(prescript.author)}>
           ${renderAvatar(prescript.author)}
