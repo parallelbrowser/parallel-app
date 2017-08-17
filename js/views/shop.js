@@ -27,6 +27,7 @@ module.exports = function shopView (state, emit) {
     p.isSubscribed = state.userProfile.subscriptURLs.indexOf(p._url) !== -1
     return p
   })
+  console.log('prescripts after map', prescripts)
 
   // TCW -- END
 
@@ -40,7 +41,7 @@ module.exports = function shopView (state, emit) {
         <div class="main-content center">
           ${renderProfileCard(state, emit, state.currentProfile)}
           ${renderError(state, emit)}
-          <h1 class="heading subtle">Gizmo Shop</h1>
+          <h1 class="heading subtle">${state.currentProfile.name}'s Gizmo Shop</h1>
           <ul class="feed">${prescripts.map(p => renderPrescript(state, emit, p, showDetails))}</ul>
         </div>
       </div>

@@ -6,11 +6,11 @@ module.exports = function renderSubscribeBtn (state, emit, prescript) {
   console.log('prescript in button', prescript)
   if (prescript.isSubscribed) {
     return html`
-      <button id="subscribe-toggle" class="btn center" onmouseout=${onShowSubscribedButton} onmouseover=${onShowUnsubcsribeButton} onclick=${toggleSubscribe}>Subscribed<i class="fa fa-check"></i></button>
+      <button id="subscribe-toggle" class="btn center sub" onmouseout=${onShowSubscribedButton} onmouseover=${onShowUnsubcsribeButton} onclick=${toggleSubscribe}>Subscribed<i class="fa fa-check"></i></button>
     `
   } else {
     return html`
-      <button id="subscribe-toggle" class="btn primary center" onclick=${toggleSubscribe}>Subscribe<i class="fa fa-plus"></i></button>
+      <button id="subscribe-toggle" class="btn primary center sub" onclick=${toggleSubscribe}>Subscribe<i class="fa fa-plus"></i></button>
     `
   }
 

@@ -17,7 +17,7 @@ app.use(require('./stores/header'))
 
 app.use(require('./stores/new-prescript'))
 app.use(require('./stores/prescripts'))
-app.use(require('./stores/subscripts'))
+// app.use(require('./stores/subscripts'))
 // app.use(require('./stores/postscripts'))
 
 // end

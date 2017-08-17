@@ -18,7 +18,7 @@ module.exports = function renderBroadcast (state, emit, broadcast, showDetails) 
           </div>
 
           <p class="content">Widget Name: ${broadcast.subscriptName}</p>
-          <p class="content">Widget Info${broadcast.subscriptInfo}</p>
+          <p class="content">Widget Info: ${broadcast.subscriptInfo}</p>
           <a href=${broadcast.postscriptHTTP} target="_blank"> <p class="content">Widget Link: ${broadcast.postscriptHTTP}</p></a>
           ${showDetails ? html`
             <div>
