@@ -21,6 +21,8 @@ module.exports = async function dbStore (state, emitter) {
       // if it is, give the main userdb
       // otherwise, give the cachedb
 
+      console.log('there is a target', target);
+
       if (typeof target === 'object' && target._origin) {
         target = target._origin
       }
