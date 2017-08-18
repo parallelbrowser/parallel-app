@@ -20,7 +20,7 @@ module.exports = function renderFeed (state, emit) {
                 Edit profile
               </a>
               <a href=${getViewProfileURL(state.userProfile)} class="dropdown-menu-item">
-                Gizmos
+                View Profile
               </a>
               <a href=${getViewSubscriptsURL(state.userProfile)} class="dropdown-menu-item">
                 Gizmos

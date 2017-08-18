@@ -16,6 +16,7 @@ module.exports = function feedStore (state, emitter) {
         reverse: true
       })
     } catch (e) {
+      console.log('in loadUserBroadcasts', e);
       state.error = e
     }
     emitter.emit('render')
