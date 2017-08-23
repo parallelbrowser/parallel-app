@@ -15,7 +15,7 @@ module.exports = function gizmoView (state, emit) {
   } else {
     var author = state.currentGizmo.author
   }
-  state.currentProfile = state.userProfile
+  console.log('state.currentGizmo in gizmo view', state.currentGizmo)
 
   const showDetails = true
 

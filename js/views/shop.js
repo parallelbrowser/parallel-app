@@ -22,6 +22,8 @@ module.exports = function shopView (state, emit) {
 
   let gizmos = state.gizmos.filter(g => state.currentProfile._origin === g.gizmoOriginArchive)
 
+  console.log('gizmos in shop', gizmos)
+
   const showDetails = false
 
   return html`

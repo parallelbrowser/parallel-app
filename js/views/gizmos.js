@@ -20,6 +20,8 @@ module.exports = function gizmosView (state, emit) {
     return loadingView(state, emit)
   }
 
+  console.log('state.gizmos in gizmos view', state.gizmos)
+
   return html`
     <main>
       ${renderHeader(state, emit, state.userProfile)}

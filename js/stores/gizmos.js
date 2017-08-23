@@ -37,27 +37,11 @@ module.exports = function gizmoStore (state, emitter) {
     }
   }
 
-  state.loadShopGizmos = async () => {
-    try {
-      state.gizmos = await state.DB(state.currentProfile).listGizmos({
-        fetchAuthor: true,
-        countVotes: true,
-        reverse: true,
-        author: state.currentProfile._origin
-      }).filter(g => {
-        return g.gizmoOriginArchive === state.currentProfile._origin
-      })
-    } catch (e) {
-      state.error = e
-    }
-    emitter.emit('render')
-  }
-
   state.loadCurrentGizmo = async function (url) {
     try {
-      console.log('url in load current', url)
+      console.log('url in loadCurrentGizmo', url)
       state.currentGizmo = await state.DB().getGizmo(url)
-      console.log('state current gizmo', state.currentGizmo)
+      console.log('state.currentGizmo in loadCurrentGizmo', state.currentGizmo)
       state.currentGizmo.isSubscribed = await state.isSubscribed(state.currentGizmo)
     } catch (e) {
       state.error = e

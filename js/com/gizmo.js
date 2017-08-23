@@ -5,6 +5,7 @@ const renderAvatar = require('./avatar')
 const {getViewProfileURL, getViewGizmoURL, niceDate} = require('../util')
 
 module.exports = function renderGizmo (state, emit, gizmo, showDetails) {
+  console.log('gizmo in renderGizmo', gizmo)
   return html`
     <div class="broadcast parent}">
       <div class="broadcast-content">
