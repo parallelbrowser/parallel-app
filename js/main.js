@@ -4,21 +4,12 @@ var app = choo()
 app.use(require('./stores/dbs'))
 app.use(require('./stores/profiles'))
 app.use(require('./stores/broadcasts'))
-app.use(require('./stores/comments'))
 app.use(require('./stores/new-post'))
 app.use(require('./stores/feed'))
 app.use(require('./stores/header'))
 
-// TCW -- new stores:
-// new-prescript: for saving a prescript generated in the shop
-// prescripts: for loading and working with prescripts
-// subscripts: for subscribing and unsubscribing to scripts
-
-app.use(require('./stores/new-prescript'))
-app.use(require('./stores/prescripts'))
-app.use(require('./stores/subscripts'))
-
-// TCW -- END
+app.use(require('./stores/new-gizmo'))
+app.use(require('./stores/gizmos'))
 
 app.route('/', require('./views/main'))
 app.route('/profile/:key', require('./views/profile'))
@@ -34,8 +25,8 @@ app.route('/settings', require('./views/settings'))
 
 app.route('/workbench', require('./views/workbench'))
 app.route('/shop/:key', require('./views/shop'))
-app.route('/subscripts/:key', require('./views/subscripts'))
-app.route('/prescript/*', require('./views/prescript'))
+app.route('/gizmos/:key', require('./views/gizmos'))
+app.route('/gizmo/*', require('./views/gizmo'))
 
 // TCW -- end
 

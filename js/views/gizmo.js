@@ -2,18 +2,18 @@ const html = require('choo/html')
 const loadingView = require('./loading')
 const renderError = require('../com/error')
 const renderHeader = require('../com/header')
-const renderPrescript = require('../com/prescript')
-const {getViewShopURL} = require('../util')
+const renderGizmo = require('../com/gizmo')
+const {getViewProfileURL} = require('../util')
 
-module.exports = function broadcastView (state, emit) {
+module.exports = function gizmoView (state, emit) {
   if (!state.isAppLoaded) {
     return loadingView(state, emit)
   }
-  if (!state.currentPrescript) {
-    state.loadCurrentPrescript('dat://' + state.params.wildcard)
+  if (!state.currentGizmo) {
+    state.loadCurrentGizmo('dat://' + state.params.wildcard)
     return loadingView(state, emit)
   } else {
-    var author = state.currentPrescript.author
+    var author = state.currentGizmo.author
   }
 
   const showDetails = true
@@ -24,11 +24,11 @@ module.exports = function broadcastView (state, emit) {
       <div class="main-container">
         <div class="main-content center">
           ${renderError(state, emit)}
-          <a href=${getViewShopURL(author)} class="breadcrumbs">
+          <a href=${getViewProfileURL(author)} class="breadcrumbs">
             <i class="fa fa-caret-left"></i>
-            Back to ${author.name}'s shop
+            ${author.name}'s profile
           </a>
-          ${renderPrescript(state, emit, state.currentPrescript, showDetails)}
+          ${renderGizmo(state, emit, state.currentGizmo, showDetails)}
         </div>
       </div>
     </main>

@@ -1,12 +1,9 @@
-// TCW -- button for script subscription
-
 const html = require('choo/html')
 
-module.exports = function renderSubscribeBtn (state, emit, prescript) {
-  console.log('prescript in button', prescript)
-  if (prescript.isSubscribed) {
+module.exports = function renderSubscribeBtn (state, emit, gizmo) {
+  if (gizmo.isSubscribed) {
     return html`
-      <button id="subscribe-toggle" class="btn center" onmouseout=${onShowSubscribedButton} onmouseover=${onShowUnsubcsribeButton} onclick=${toggleSubscribe}>Subscribed<i class="fa fa-check"></i></button>
+      <button id="subscribe-toggle" class="btn center" onmouseout=${onShowSubscribedButton} onmouseover=${onShowUnsubscribeButton} onclick=${toggleSubscribe}>Subscribed<i class="fa fa-check"></i></button>
     `
   } else {
     return html`
@@ -15,10 +12,10 @@ module.exports = function renderSubscribeBtn (state, emit, prescript) {
   }
 
   function toggleSubscribe () {
-    state.toggleSubscribe(prescript)
+    state.toggleSubscribe(gizmo)
   }
 
-  function onShowUnsubcsribeButton () {
+  function onShowUnsubscribeButton () {
     const btn = document.getElementById('subscribe-toggle')
     btn.innerHTML = 'Unsubscribe<i class="fa fa-times"></i>'
   }

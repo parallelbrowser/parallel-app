@@ -50,9 +50,9 @@ module.exports = async function profileStore (state, emitter) {
     emitter.emit('render')
   })
 
-  state.loadProfile = async (url, {getFollowProfiles, getSubscripts} = {}) => {
+  state.loadProfile = async (url, {getFollowProfiles} = {}) => {
     try {
-      state.currentProfile = await readProfile(state, url, {getFollowProfiles, getSubscripts})
+      state.currentProfile = await readProfile(state, url, {getFollowProfiles})
     } catch (e) {
       state.error = e
     }
@@ -71,30 +71,6 @@ module.exports = async function profileStore (state, emitter) {
     } catch (e) {
       state.error = e
     }
-    emitter.emit('render')
-  }
-
-  state.toggleSubscribe = async prescript => {
-    try {
-      if (prescript.isSubscribed) {
-        await state.DB().unsubscribe(state.userProfile._origin, prescript._url)
-        prescript.isSubscribed = false
-      } else {
-        await state.DB().subscribe(
-          state.userProfile._origin,
-          prescript._url,
-          prescript._origin,
-          prescript.prescriptName,
-          prescript.prescriptInfo,
-          prescript.prescriptJS,
-          prescript.prescriptCSS
-        )
-        prescript.isSubscribed = true
-      }
-    } catch (e) {
-      state.error = e
-    }
-    console.log('user profile in profiles', state.userProfile)
     emitter.emit('render')
   }
 
@@ -120,7 +96,7 @@ module.exports = async function profileStore (state, emitter) {
       await state.DB().setProfile(archive.url, values)
 
       // reload
-      state.userProfile = await readProfile(state, archive.url, {getFollowProfiles: true, getSubscripts: true})
+      state.userProfile = await readProfile(state, archive.url, {getFollowProfiles: true})
     } catch (e) {
       console.error(e)
       state.error = e

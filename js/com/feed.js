@@ -10,7 +10,7 @@ module.exports = function renderFeed (state, emit) {
     `
   }
 
-  let broadcasts = state.broadcasts.filter(b => !(b.threadRoot || b.threadParent))
+  let broadcasts = state.broadcasts
 
   return html`
     <ul class="feed">${broadcasts.map(b => renderBroadcast(state, emit, b))}</ul>

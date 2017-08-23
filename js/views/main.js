@@ -29,7 +29,6 @@ module.exports = function mainView (state, emit) {
 
         <div class="main-content feed-container">
           ${renderError(state, emit)}
-          ${renderPostForm(state, emit)}
           ${renderFeed(state, emit)}
         </div>
       </div>

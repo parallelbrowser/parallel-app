@@ -1,7 +1,7 @@
 /* globals FileReader */
 
 const html = require('choo/html')
-const {getViewProfileURL, getAvatarStyle, getViewShopURL} = require('../util')
+const {getViewProfileURL, getAvatarStyle} = require('../util')
 
 module.exports = function renderWorkbench (state, emit, profile) {
   var avatarStyle = state.tmpAvatarURL ? `background-image: url(${state.tmpAvatarURL})` : getAvatarStyle(profile)
@@ -18,23 +18,23 @@ module.exports = function renderWorkbench (state, emit, profile) {
           </div>
           <input name="avatar" type="hidden"/>
           <p>
-            <label for="prescriptName">Gizmo Name</label>
-            <input id="prescriptName" name="prescriptName" type="text" autofocus />
+            <label for="gizmoName">Gizmo Name</label>
+            <input id="gizmoName" name="gizmoName" type="text" autofocus />
           </p>
 
           <p>
-            <label for="prescriptInfo">Gizmo Info</label>
-            <input id="prescriptInfo" name="prescriptInfo" type="text" autofocus />
+            <label for="gizmoDescription">Gizmo Description</label>
+            <input id="gizmoDescription" name="gizmoDescription" type="text" autofocus />
           </p>
 
           <p>
-            <label for="prescriptJS">Gizmo JS</label>
-            <textarea id="prescriptJS" name="prescriptJS"></textarea>
+            <label for="gizmoDocs">Gizmo Docs</label>
+            <textarea id="gizmoDocs" name="gizmoDocs"></textarea>
           </p>
 
           <p>
-            <label for="prescriptCSS">Gizmo CSS</label>
-            <textarea id="prescriptCSS" name="prescriptCSS"></textarea>
+            <label for="gizmoJS">Gizmo JS</label>
+            <textarea id="gizmoJS" name="gizmoJS"></textarea>
           </p>
 
           <p>
@@ -61,18 +61,18 @@ module.exports = function renderWorkbench (state, emit, profile) {
   async function onSubmit (e) {
     e.preventDefault()
 
-    // DZ - add await so the prescript is actually saved
-    await state.savePrescript({
-      prescriptName: e.target.prescriptName.value || '',
-      prescriptInfo: e.target.prescriptInfo.value || '',
-      prescriptJS: e.target.prescriptJS.value || '',
-      prescriptCSS: e.target.prescriptCSS.value || ''
+    state.publishGizmo({
+      gizmoOriginArchive: state.userProfile._origin,
+      gizmoOriginAuthor: state.userProfile.name,
+      gizmoName: e.target.gizmoName.value || '',
+      gizmoDescription: e.target.gizmoDescription.value || '',
+      gizmoDocs: e.target.gizmoDocs.value || '',
+      gizmoJS: e.target.gizmoJS.value || ''
     })
 
-    document.getElementById('prescriptName').value='';
-    document.getElementById('prescriptInfo').value='';
-    document.getElementById('prescriptJS').value='';
-    document.getElementById('prescriptCSS').value='';
+    document.getElementById('gizmoName').value = ''
+    document.getElementById('gizmoDescription').value = ''
+    document.getElementById('gizmoDocs').value = ''
+    document.getElementById('gizmoJS').value = ''
   }
-
 }

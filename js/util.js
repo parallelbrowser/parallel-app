@@ -62,21 +62,17 @@ exports.getViewBroadcastURL = function (broadcast) {
   return '/#broadcast/' + broadcast._url.slice('dat://'.length)
 }
 
-// TCW -- added url for prescript
-
-exports.getViewPrescriptURL = function (prescript) {
-  return '/#prescript/' + prescript._url.slice('dat://'.length)
+exports.getViewGizmoURL = function (gizmo) {
+  return '/#gizmo/' + gizmo._url.slice('dat://'.length)
 }
 
-exports.getViewSubscriptOriginURL = function (subscript) {
-  return '/#prescript/' + subscript.subscriptURL.slice('dat://'.length)
+exports.getViewGizmosURL = function (profile) {
+  if (!profile) return ''
+  var url = profile._origin ? profile._origin : profile
+  return '/#gizmos/' + url.slice('dat://'.length)
 }
 
-// TCW -- END
-
-// TCW -- added url for workbench route
-
-exports.getWorkbenchURL = function (profile) {
+exports.getViewWorkbenchURL = function (profile) {
   return '/#workbench'
 }
 
@@ -85,14 +81,6 @@ exports.getViewShopURL = function (profile) {
   var url = profile._origin ? profile._origin : profile
   return '/#shop/' + url.slice('dat://'.length)
 }
-
-exports.getViewSubscriptsURL = function (profile) {
-  if (!profile) return ''
-  var url = profile._origin ? profile._origin : profile
-  return '/#subscripts/' + url.slice('dat://'.length)
-}
-
-// TCW -- end
 
 exports.getIsFollowed = async function (state, profile) {
   if (state.userProfile && profile._origin !== state.userProfile._origin) {
