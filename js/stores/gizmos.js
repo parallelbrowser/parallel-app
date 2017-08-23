@@ -16,17 +16,11 @@ module.exports = function gizmoStore (state, emitter) {
         reverse: true,
         author: state.currentProfile._origin
       })
-      console.log('gizmos before sub check', gizmos)
       gizmos = gizmos.map(async g => {
         g.isSubscribed = await state.isSubscribed(g)
         return g
       })
-      console.log('gizmos after mapping', gizmos)
-      // state.gizmos = await Promise.all(gizmos.map(async g => {
-      //   g.isSubscribed = await state.isSubscribed(g)
-      // }))
       state.gizmos = await Promise.all(gizmos)
-      console.log('gizmos after loading', state.gizmos)
     } catch (e) {
       state.error = e
     }
@@ -34,10 +28,8 @@ module.exports = function gizmoStore (state, emitter) {
   }
 
   state.isSubscribed = async function (gizmo) {
-    console.log('gizmo in isSubscribed app', gizmo)
     try {
       const val = await state.DB().isSubscribed(state.userProfile._origin, gizmo)
-      console.log('val in isSubscribed app', val)
       return val
     } catch (e) {
       state.error = e
@@ -63,7 +55,10 @@ module.exports = function gizmoStore (state, emitter) {
 
   state.loadCurrentGizmo = async function (url) {
     try {
+      console.log('url in load current', url)
       state.currentGizmo = await state.DB().getGizmo(url)
+      console.log('state current gizmo', state.currentGizmo)
+      state.currentGizmo.isSubscribed = await state.isSubscribed(state.currentGizmo)
     } catch (e) {
       state.error = e
       console.error(e)

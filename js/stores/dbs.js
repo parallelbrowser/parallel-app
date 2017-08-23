@@ -1,6 +1,6 @@
 /* globals DatArchive */
 
-const NexusAPI = require('parallel-scratch-api')
+const ParallelAPI = require('parallel-scratch-api')
 
 module.exports = async function dbStore (state, emitter) {
   var userURL = null
@@ -40,11 +40,11 @@ module.exports = async function dbStore (state, emitter) {
 
   state.loadUserDB = async function (_userURL) {
     userURL = _userURL
-    userDB = await NexusAPI.open(new DatArchive(userURL))
+    userDB = await ParallelAPI.open(new DatArchive(userURL))
     emitter.emit('userdb-ready')
   }
 
   // load the cache DB by default
-  cacheDB = await NexusAPI.open(/* cache db */)
+  cacheDB = await ParallelAPI.open(/* cache db */)
   emitter.emit('cachedb-ready')
 }

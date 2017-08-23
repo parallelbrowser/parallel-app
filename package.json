@@ -31,7 +31,7 @@
     "dat-nexus-api": "^3.0.0",
     "debounce": "^1.0.2",
     "moment": "^2.18.1",
-    "parallel-scratch-api": "^0.6.4"
+    "parallel-scratch-api": "^0.7.3"
   },
   "devDependencies": {
     "less": "^2.7.2"

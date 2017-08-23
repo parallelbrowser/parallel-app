@@ -20,7 +20,7 @@ module.exports = function shopView (state, emit) {
     return loadingView(state, emit)
   }
 
-  let gizmos = state.gizmos
+  let gizmos = state.gizmos.filter(g => state.currentProfile._origin === g.gizmoOriginArchive)
 
   const showDetails = false
 

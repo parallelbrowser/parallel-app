@@ -25,5 +25,3 @@ module.exports = function renderSubscribeBtn (state, emit, gizmo) {
     btn.innerHTML = 'Subscribed<i class="fa fa-check"></i>'
   }
 }
-
-// END

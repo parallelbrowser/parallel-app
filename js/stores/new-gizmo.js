@@ -15,11 +15,15 @@ module.exports = function newGizmoStore (state, emitter) {
     try {
       if (gizmo.isSubscribed) {
         if (state.userProfile._origin !== gizmo.gizmoOriginArchive) {
-          await state.DB().removeGizmo(gizmo)
+          console.log('state gizmos in toggle is subbed', state.gizmos)
+          console.log('gizmo in toggle', gizmo)
+          await state.DB(state.userProfile._origin).removeGizmo(state.userProfile._origin, gizmo)
         }
         await state.DB().unsubscribeFromGizmo(state.userProfile._origin, gizmo)
         gizmo.isSubscribed = false
       } else {
+        console.log('gizmo in toggle not subbed', gizmo)
+        console.log('state gizmos in toggle not subbed', state.gizmos)
         if (state.userProfile._origin !== gizmo.gizmoOriginArchive) {
           await state.DB().gizmo(state.userProfile._origin, gizmo)
         }
