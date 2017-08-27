@@ -32,7 +32,7 @@ module.exports = function broadcastView (state, emit) {
             ? renderBroadcast(state, emit, state.currentBroadcastParent, true)
             : ''
           }
-          ${renderBroadcast(state, emit, state.currentBroadcast)}
+          ${renderBroadcast(state, emit, state.currentBroadcast, true)}
         </div>
       </div>
     </main>
