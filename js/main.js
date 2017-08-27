@@ -7,8 +7,6 @@ app.use(require('./stores/broadcasts'))
 app.use(require('./stores/new-post'))
 app.use(require('./stores/feed'))
 app.use(require('./stores/header'))
-
-app.use(require('./stores/new-gizmo'))
 app.use(require('./stores/gizmos'))
 
 app.route('/', require('./views/main'))
@@ -25,7 +23,7 @@ app.route('/settings', require('./views/settings'))
 
 app.route('/workbench', require('./views/workbench'))
 app.route('/shop/:key', require('./views/shop'))
-app.route('/gizmos/:key', require('./views/gizmos'))
+app.route('/gizmos/:key', require('./views/subgizmos'))
 app.route('/gizmo/*', require('./views/gizmo'))
 
 // TCW -- end

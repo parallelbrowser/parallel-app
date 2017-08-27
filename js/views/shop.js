@@ -15,16 +15,14 @@ module.exports = function shopView (state, emit) {
     return loadingView(state, emit)
   }
 
-  if (!state.gizmos) {
-    state.loadUserGizmos()
+  if (!state.shopGizmos) {
+    state.loadUserShopGizmos()
     return loadingView(state, emit)
   }
 
-  let gizmos = state.gizmos.filter(g => state.currentProfile._origin === g.gizmoOriginArchive)
-
-  console.log('gizmos in shop', gizmos)
-
-  const showDetails = false
+  const opts = {
+    showDetails: false
+  }
 
   return html`
     <main>
@@ -33,8 +31,11 @@ module.exports = function shopView (state, emit) {
         <div class="main-content center">
           ${renderProfileCard(state, emit, state.currentProfile)}
           ${renderError(state, emit)}
-          <h1 class="heading subtle">Gizmo Shop</h1>
-          <ul class="feed">${gizmos.map(g => renderGizmo(state, emit, g, showDetails))}</ul>
+          <h1 class="heading subtle">Shop</h1>
+          ${state.shopGizmos.length
+            ? html`<ul class="feed">${state.shopGizmos.map(g => renderGizmo(state, emit, g, opts))}</ul>`
+            : html`<p>${state.currentProfile.name} has no gizmos in the shop.</p>`
+          }
         </div>
       </div>
     </main>

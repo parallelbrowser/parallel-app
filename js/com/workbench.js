@@ -62,8 +62,6 @@ module.exports = function renderWorkbench (state, emit, profile) {
     e.preventDefault()
 
     state.publishGizmo({
-      gizmoOriginArchive: state.userProfile._origin,
-      gizmoOriginAuthor: state.userProfile.name,
       gizmoName: e.target.gizmoName.value || '',
       gizmoDescription: e.target.gizmoDescription.value || '',
       gizmoDocs: e.target.gizmoDocs.value || '',

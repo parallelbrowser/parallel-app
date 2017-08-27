@@ -4,8 +4,12 @@ const renderSubscribeBtn = require('./subscribe-btn')
 const renderAvatar = require('./avatar')
 const {getViewProfileURL, getViewGizmoURL, niceDate} = require('../util')
 
-module.exports = function renderGizmo (state, emit, gizmo, showDetails) {
-  console.log('gizmo in renderGizmo', gizmo)
+module.exports = function renderGizmo (state, emit, gizmo, opts = {}) {
+  if (opts.subgizmosView &&
+    !gizmo.isSubscribed &&
+    state.currentProfile._origin === state.userProfile._origin) {
+    return ''
+  }
   return html`
     <div class="broadcast parent}">
       <div class="broadcast-content">
@@ -21,7 +25,7 @@ module.exports = function renderGizmo (state, emit, gizmo, showDetails) {
 
           <p class="content">Gizmo Name: ${gizmo.gizmoName}</p>
           <p class="content">Gizmo Description: ${gizmo.gizmoDescription}</p>
-          ${showDetails ? html`
+          ${opts.showDetails ? html`
             <div>
               <p class="content">Gizmo Docs: ${gizmo.gizmoDocs}</p>
               <p class="content">Gizmo JS: ${gizmo.gizmoJS}</p>

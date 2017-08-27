@@ -1,6 +1,6 @@
 const html = require('choo/html')
 const renderAvatar = require('./avatar')
-const {getViewProfileURL, getEditProfileURL, getViewWorkbenchURL, getViewShopURL, getViewGizmosURL} = require('../util')
+const {getViewProfileURL, getEditProfileURL, getViewWorkbenchURL, getViewShopURL, getViewSubgizmosURL} = require('../util')
 
 module.exports = function renderFeed (state, emit) {
   return html`
@@ -22,7 +22,7 @@ module.exports = function renderFeed (state, emit) {
               <a href=${getEditProfileURL(state.userProfile)} class="dropdown-menu-item">
                 Edit profile
               </a>
-              <a href=${getViewGizmosURL(state.userProfile)} class="dropdown-menu-item">
+              <a href=${getViewSubgizmosURL(state.userProfile)} class="dropdown-menu-item">
                 Gizmos
               </a>
               <a href=${getViewWorkbenchURL(state.userProfile)} class="dropdown-menu-item">

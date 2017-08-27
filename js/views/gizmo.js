@@ -15,9 +15,15 @@ module.exports = function gizmoView (state, emit) {
   } else {
     var author = state.currentGizmo.author
   }
-  console.log('state.currentGizmo in gizmo view', state.currentGizmo)
 
-  const showDetails = true
+  if (!state.currentProfile) {
+    state.loadProfile(state.currentGizmo._origin, {getFollowProfiles: true})
+    return loadingView(state, emit)
+  }
+
+  const opts = {
+    showDetails: true
+  }
 
   return html`
     <main>
@@ -29,7 +35,7 @@ module.exports = function gizmoView (state, emit) {
             <i class="fa fa-caret-left"></i>
             ${author.name}'s profile
           </a>
-          ${renderGizmo(state, emit, state.currentGizmo, showDetails)}
+          ${renderGizmo(state, emit, state.currentGizmo, opts)}
         </div>
       </div>
     </main>

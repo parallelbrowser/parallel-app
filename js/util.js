@@ -48,9 +48,7 @@ exports.getViewProfileURL = function (profile) {
 }
 
 exports.getEditProfileURL = function (profile) {
-  var url = profile._origin ? profile._origin : profile
   return '/#settings'
-  // return '/#profile/' + url.slice('dat://'.length) + '/edit'
 }
 
 exports.getViewFollowsURL = function (profile) {
@@ -66,7 +64,7 @@ exports.getViewGizmoURL = function (gizmo) {
   return '/#gizmo/' + gizmo._url.slice('dat://'.length)
 }
 
-exports.getViewGizmosURL = function (profile) {
+exports.getViewSubgizmosURL = function (profile) {
   if (!profile) return ''
   var url = profile._origin ? profile._origin : profile
   return '/#gizmos/' + url.slice('dat://'.length)

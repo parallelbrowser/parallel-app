@@ -1,48 +1,82 @@
+const {getViewShopURL} = require('../util')
+
 module.exports = function gizmoStore (state, emitter) {
   state.error = null
-  state.gizmos = null
+  state.subgizmos = null
+  state.shopGizmos = null
+  state.currentGizmo = null
 
   emitter.on('pushState', () => {
     // clear page state
     state.error = null
-    state.gizmos = null
+    state.subgizmos = null
+    state.shopGizmos = null
+    state.currentGizmo = null
   })
 
-  state.loadUserGizmos = async () => {
+  state.publishGizmo = async (values) => {
     try {
-      let gizmos = await state.DB(state.currentProfile).listGizmos({
+      await state.DB().gizmo(state.userProfile._origin, values)
+      emitter.emit('pushState', getViewShopURL(state.userProfile))
+    } catch (e) {
+      console.error(e)
+      state.error = e
+    }
+  }
+
+  state.loadUserShopGizmos = async () => {
+    try {
+      state.shopGizmos = await state.DB(state.currentProfile).listGizmos({
         fetchAuthor: true,
         countVotes: true,
         reverse: true,
+        loadShop: true,
+        checkIfSubscribed: state.userProfile._origin,
         author: state.currentProfile._origin
       })
-      gizmos = gizmos.map(async g => {
-        g.isSubscribed = await state.isSubscribed(g)
-        return g
-      })
-      state.gizmos = await Promise.all(gizmos)
     } catch (e) {
       state.error = e
     }
     emitter.emit('render')
   }
 
-  state.isSubscribed = async function (gizmo) {
+  state.loadUserSubgizmos = async () => {
     try {
-      const val = await state.DB().isSubscribed(state.userProfile._origin, gizmo)
-      return val
+      state.subgizmos = await state.DB(state.currentProfile).listGizmos({
+        fetchAuthor: true,
+        countVotes: true,
+        reverse: true,
+        checkIfSubscribed: state.userProfile._origin,
+        subscriber: state.currentProfile._origin
+      })
     } catch (e) {
       state.error = e
       console.error(e)
     }
+    emitter.emit('render')
+  }
+
+  state.toggleSubscribe = async function (gizmo) {
+    try {
+      if (gizmo.isSubscribed) {
+        await state.DB().unsubscribe(state.userProfile._origin, gizmo)
+        gizmo.isSubscribed = false
+      } else {
+        await state.DB().subscribe(state.userProfile._origin, gizmo)
+        gizmo.isSubscribed = true
+      }
+    } catch (e) {
+      state.error = e
+      console.error(e)
+    }
+    state.loadUserShopGizmos()
+    state.loadUserSubgizmos()
+    emitter.emit('render')
   }
 
   state.loadCurrentGizmo = async function (url) {
     try {
-      console.log('url in loadCurrentGizmo', url)
-      state.currentGizmo = await state.DB().getGizmo(url)
-      console.log('state.currentGizmo in loadCurrentGizmo', state.currentGizmo)
-      state.currentGizmo.isSubscribed = await state.isSubscribed(state.currentGizmo)
+      state.currentGizmo = await state.DB(state.currentProfile).getGizmo(state.userProfile._origin, url)
     } catch (e) {
       state.error = e
       console.error(e)
