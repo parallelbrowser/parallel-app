@@ -11,13 +11,13 @@ module.exports = function renderGizmo (state, emit, gizmo, opts = {}) {
     return ''
   }
   return html`
-    <div class="broadcast parent}">
-      <div class="broadcast-content">
+    <div class="post parent}">
+      <div class="post-content">
         <a class="avatar-container" href=${getViewProfileURL(gizmo.author)}>
           ${renderAvatar(gizmo.author)}
         </a>
 
-        <div class="broadcast-container">
+        <div class="post-container">
           <div class="metadata">
             <a href=${getViewProfileURL(gizmo.author)} class="name">${gizmo.author.name}</span>
             <a href=${getViewGizmoURL(gizmo)} target="_blank"><span class="date">${niceDate(gizmo.createdAt)}</span></a>

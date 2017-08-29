@@ -1,8 +1,8 @@
 const html = require('choo/html')
-const renderBroadcast = require('./broadcast')
+const renderPost = require('./post')
 
 module.exports = function renderFeed (state, emit) {
-  if (!state.broadcasts) {
+  if (!state.posts) {
     return html`
       <p class="card">
         <i class="fa fa-spinner"></i> Loading feed...
@@ -10,9 +10,9 @@ module.exports = function renderFeed (state, emit) {
     `
   }
 
-  let broadcasts = state.broadcasts
+  let posts = state.posts
 
   return html`
-    <ul class="feed">${broadcasts.map(b => renderBroadcast(state, emit, b, false))}</ul>
+    <ul class="feed">${posts.map(p => renderPost(state, emit, p, false))}</ul>
   `
 }

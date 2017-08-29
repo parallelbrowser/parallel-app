@@ -1,16 +1,16 @@
 module.exports = function feedStore (state, emitter) {
   state.error = null
-  state.broadcasts = null
+  state.posts = null
 
   emitter.on('pushState', () => {
     // clear page state
     state.error = null
-    state.broadcasts = null
+    state.posts = null
   })
 
   state.loadMainFeed = async () => {
     try {
-      state.broadcasts = await state.DB().listPosts({
+      state.posts = await state.DB().listPosts({
         fetchAuthor: true,
         fetchReplies: true,
         countVotes: true,
@@ -25,9 +25,9 @@ module.exports = function feedStore (state, emitter) {
     emitter.emit('render')
   }
 
-  state.loadUserBroadcasts = async () => {
+  state.loadUserPosts = async () => {
     try {
-      state.broadcasts = await state.DB(state.currentProfile).listPosts({
+      state.posts = await state.DB(state.currentProfile).listPosts({
         fetchAuthor: true,
         fetchReplies: true,
         countVotes: true,
@@ -43,21 +43,21 @@ module.exports = function feedStore (state, emitter) {
     emitter.emit('render')
   }
 
-  emitter.on('like', async broadcast => {
-    state.DB().vote(state.userArchive, {vote: 1, subject: broadcast._url})
-    broadcast.votes.currentUsersVote = 1
-    broadcast.votes.value++
-    broadcast.votes.up++
-    broadcast.votes.upVoters.push(state.userArchive.url)
+  emitter.on('like', async post => {
+    state.DB().vote(state.userArchive, {vote: 1, subject: post._url})
+    post.votes.currentUsersVote = 1
+    post.votes.value++
+    post.votes.up++
+    post.votes.upVoters.push(state.userArchive.url)
     emitter.emit('render')
   })
 
-  emitter.on('unlike', async broadcast => {
-    state.DB().vote(state.userArchive, {vote: 0, subject: broadcast._url})
-    broadcast.votes.currentUsersVote = 0
-    broadcast.votes.value--
-    broadcast.votes.up--
-    broadcast.votes.upVoters = broadcast.votes.upVoters.filter(u => u !== state.userArchive.url)
+  emitter.on('unlike', async post => {
+    state.DB().vote(state.userArchive, {vote: 0, subject: post._url})
+    post.votes.currentUsersVote = 0
+    post.votes.value--
+    post.votes.up--
+    post.votes.upVoters = post.votes.upVoters.filter(u => u !== state.userArchive.url)
     emitter.emit('render')
   })
 }

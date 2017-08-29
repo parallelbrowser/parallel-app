@@ -4,20 +4,20 @@ const html = require('choo/html')
 const loadingView = require('./loading')
 const renderError = require('../com/error')
 const renderHeader = require('../com/header')
-const renderBroadcast = require('../com/broadcast')
+const renderPost = require('../com/post')
 const {getViewProfileURL} = require('../util')
 
-module.exports = function broadcastView (state, emit) {
+module.exports = function postView (state, emit) {
   if (!state.isAppLoaded) {
     return loadingView(state, emit)
   }
-  if (!state.currentBroadcast) {
-    state.loadCurrentBroadcast('dat://' + state.params.wildcard)
+  if (!state.currentPost) {
+    state.loadCurrentPost('dat://' + state.params.wildcard)
     return loadingView(state, emit)
   } else {
-    var author = state.currentBroadcast.author
+    var author = state.currentPost.author
   }
-  state.expandedBroadcasts.push(state.currentBroadcast._url)
+  state.expandedPosts.push(state.currentPost._url)
   return html`
     <main>
       ${renderHeader(state, emit, state.userProfile)}
@@ -28,11 +28,11 @@ module.exports = function broadcastView (state, emit) {
             <i class="fa fa-caret-left"></i>
             Back to ${author.name}'s feed
           </a>
-          ${state.currentBroadcastParent
-            ? renderBroadcast(state, emit, state.currentBroadcastParent, true)
+          ${state.currentPostParent
+            ? renderPost(state, emit, state.currentPostParent, true)
             : ''
           }
-          ${renderBroadcast(state, emit, state.currentBroadcast, true)}
+          ${renderPost(state, emit, state.currentPost, true)}
         </div>
       </div>
     </main>

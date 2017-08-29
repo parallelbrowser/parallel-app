@@ -5,7 +5,7 @@ const renderHeader = require('../com/header')
 const renderWorkbench = require('../com/workbench')
 const {getViewProfileURL} = require('../util')
 
-module.exports = function broadcastView (state, emit) {
+module.exports = function postView (state, emit) {
   if (!state.isAppLoaded) {
     return loadingView(state, emit)
   }

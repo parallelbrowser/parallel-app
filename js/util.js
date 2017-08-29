@@ -56,8 +56,8 @@ exports.getViewFollowsURL = function (profile) {
   return '/#profile/' + url.slice('dat://'.length) + '/follows'
 }
 
-exports.getViewBroadcastURL = function (broadcast) {
-  return '/#broadcast/' + broadcast._url.slice('dat://'.length)
+exports.getViewPostURL = function (post) {
+  return '/#post/' + post._url.slice('dat://'.length)
 }
 
 exports.getViewGizmoURL = function (gizmo) {

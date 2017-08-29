@@ -11,7 +11,7 @@ module.exports = function mainView (state, emit) {
   if (!state.isAppLoaded) {
     return loadingView(state, emit)
   }
-  if (!state.broadcasts) {
+  if (!state.posts) {
     state.loadMainFeed()
   }
 

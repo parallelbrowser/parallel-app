@@ -128,7 +128,7 @@ async function readProfile (state, url, opts = {}) {
   var db = state.DB(url)
   await db.addArchive(url)
   var profile = await db.getProfile(url)
-  profile.numBroadcasts = await db.countBroadcasts({author: url})
+  profile.numPosts = await db.countPosts({author: url})
   profile.isFollowed = await getIsFollowed(state, profile)
   if (opts.getFollowProfiles) {
     profile.followProfiles = await Promise.all(profile.followUrls.map(db.getProfile))
