@@ -5,6 +5,7 @@ module.exports = function gizmoStore (state, emitter) {
   state.subgizmos = null
   state.shopGizmos = null
   state.currentGizmo = null
+  state.expandedGizmos = []
 
   emitter.on('pushState', () => {
     // clear page state
@@ -12,6 +13,7 @@ module.exports = function gizmoStore (state, emitter) {
     state.subgizmos = null
     state.shopGizmos = null
     state.currentGizmo = null
+    state.expandedGizmos = []
   })
 
   state.publishGizmo = async (values) => {
@@ -32,7 +34,8 @@ module.exports = function gizmoStore (state, emitter) {
         reverse: true,
         loadShop: true,
         checkIfSubscribed: state.userProfile._origin,
-        author: state.currentProfile._origin
+        author: state.currentProfile._origin,
+        fetchReplies: true
       })
     } catch (e) {
       state.error = e
@@ -47,7 +50,8 @@ module.exports = function gizmoStore (state, emitter) {
         countVotes: true,
         reverse: true,
         checkIfSubscribed: state.userProfile._origin,
-        subscriber: state.currentProfile._origin
+        subscriber: state.currentProfile._origin,
+        fetchReplies: true
       })
     } catch (e) {
       state.error = e

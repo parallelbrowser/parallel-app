@@ -28,10 +28,6 @@ module.exports = function postView (state, emit) {
             <i class="fa fa-caret-left"></i>
             Back to ${author.name}'s feed
           </a>
-          ${state.currentPostParent
-            ? renderPost(state, emit, state.currentPostParent, true)
-            : ''
-          }
           ${renderPost(state, emit, state.currentPost, true)}
         </div>
       </div>

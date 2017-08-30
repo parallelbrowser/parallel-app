@@ -8,6 +8,7 @@ app.use(require('./stores/posts'))
 app.use(require('./stores/feed'))
 app.use(require('./stores/header'))
 app.use(require('./stores/gizmos'))
+app.use(require('./stores/comments'))
 
 app.route('/', require('./views/main'))
 app.route('/profile/:key', require('./views/profile'))

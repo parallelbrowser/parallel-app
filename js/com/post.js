@@ -1,9 +1,11 @@
 const html = require('choo/html')
 const renderLikeBtn = require('./like-btn')
 const renderAvatar = require('./avatar')
-const {getViewProfileURL, getViewPostURL, getViewGizmoURL, niceDate} = require('../util')
+const renderComments = require('./comments')
+const {getViewProfileURL, getViewPostURL, getViewGizmoURL, niceDate, pluralize} = require('../util')
 
 module.exports = function renderPost (state, emit, post, showDetails) {
+  var commentsExpanded = state.expandedPosts.indexOf(post._url) !== -1
   return html`
     <div class="post">
       <div class="post-content">
@@ -31,6 +33,27 @@ module.exports = function renderPost (state, emit, post, showDetails) {
 
       <div class="controls">
         ${renderLikeBtn(emit, post)}
+        <span class="action comment" onclick=${onToggleComments}>
+          ${post.replies && post.replies.length
+            ? html`
+              <span>
+                ${post.replies.length}
+                ${pluralize(post.replies.length, 'comment', 's')}
+              </span>`
+            : 'Write a comment'}
+        </span>
+      </div>
+      ${commentsExpanded ? renderComments(state, emit, post) : ''}
     </div>
   `
+
+  function onToggleComments () {
+    var idx = state.expandedPosts.indexOf(post._url)
+    if (idx === -1) {
+      state.expandedPosts.push(post._url)
+    } else {
+      state.expandedPosts.splice(idx, 1)
+    }
+    emit('render')
+  }
 }
