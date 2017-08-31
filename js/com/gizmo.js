@@ -1,3 +1,5 @@
+/* globals alert */
+
 const html = require('choo/html')
 const renderLikeBtn = require('./like-btn')
 const renderSubscribeBtn = require('./subscribe-btn')
@@ -12,7 +14,6 @@ module.exports = function renderGizmo (state, emit, gizmo, opts = {}) {
     return ''
   }
   const commentsExpanded = state.expandedGizmos.indexOf(gizmo._url) !== -1
-  console.log('gizmo in renderGizmo', gizmo)
   return html`
     <div class="post parent}">
       <div class="post-content">
@@ -31,6 +32,19 @@ module.exports = function renderGizmo (state, emit, gizmo, opts = {}) {
           ${opts.showDetails ? html`
             <div>
               <p class="content">Gizmo Docs: ${gizmo.gizmoDocs}</p>
+              <a><p class="content" onclick=${() => alert(gizmo._url)}>Gizmo URL: Click for link</p></a>
+              <p class="content">Gizmo Dependencies: ${gizmo.gizmoDependencies.length ? '' : 'No gizmo dependencies.'}</p>
+                ${gizmo.gizmoDependencies.length ? html`
+                  <ol>
+                    ${niceDependencies(gizmo, true)}
+                  </ol>
+                ` : ''}
+              <p class="content">Post Dependencies: ${gizmo.postDependencies.length ? '' : 'No post dependencies.'}</p>
+                ${gizmo.postDependencies.length ? html`
+                  <ol>
+                    ${niceDependencies(gizmo, false)}
+                  </ol>
+                ` : ''}
               <p class="content">Gizmo JS: ${gizmo.gizmoJS}</p>
             </div>
           ` : ''}
@@ -53,6 +67,20 @@ module.exports = function renderGizmo (state, emit, gizmo, opts = {}) {
       ${commentsExpanded ? renderComments(state, emit, gizmo) : ''}
     </div>
   `
+
+  function niceDependencies (gizmo, forGizmoDependencies) {
+    let arr = forGizmoDependencies ? gizmo.gizmoDependencies : gizmo.postDependencies
+    arr = arr.map(d => {
+      return html`
+        <li>
+          <a href=${getViewGizmoURL(d.url)}>
+            <p>${d.name}</p>
+          </a>
+        </li>
+      `
+    })
+    return arr
+  }
 
   function onToggleComments () {
     var idx = state.expandedGizmos.indexOf(gizmo._url)

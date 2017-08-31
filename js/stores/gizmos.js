@@ -30,12 +30,12 @@ module.exports = function gizmoStore (state, emitter) {
     try {
       state.shopGizmos = await state.DB(state.currentProfile).listGizmos({
         fetchAuthor: true,
+        fetchReplies: true,
         countVotes: true,
         reverse: true,
         loadShop: true,
         checkIfSubscribed: state.userProfile._origin,
-        author: state.currentProfile._origin,
-        fetchReplies: true
+        author: state.currentProfile._origin
       })
     } catch (e) {
       state.error = e
@@ -47,11 +47,11 @@ module.exports = function gizmoStore (state, emitter) {
     try {
       state.subgizmos = await state.DB(state.currentProfile).listGizmos({
         fetchAuthor: true,
+        fetchReplies: true,
         countVotes: true,
         reverse: true,
         checkIfSubscribed: state.userProfile._origin,
-        subscriber: state.currentProfile._origin,
-        fetchReplies: true
+        subscriber: state.currentProfile._origin
       })
     } catch (e) {
       state.error = e
@@ -80,7 +80,13 @@ module.exports = function gizmoStore (state, emitter) {
 
   state.loadCurrentGizmo = async function (url) {
     try {
-      state.currentGizmo = await state.DB(state.currentProfile).getGizmo(state.userProfile._origin, url)
+      state.currentGizmo = await state.DB(state.currentProfile).getGizmo(url, {
+        fetchAuthor: true,
+        fetchReplies: true,
+        countVotes: true,
+        checkIfSubscribed: true,
+        requester: state.userProfile._origin
+      })
     } catch (e) {
       state.error = e
       console.error(e)

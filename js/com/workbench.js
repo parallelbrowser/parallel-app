@@ -33,6 +33,16 @@ module.exports = function renderWorkbench (state, emit, profile) {
           </p>
 
           <p>
+            <label for="gizmoDependencies">Gizmo Dependencies</label>
+            <textarea id="gizmoDependencies" name="gizmoDependencies"></textarea>
+          </p>
+
+          <p>
+            <label for="postDependencies">Post Dependencies</label>
+            <textarea id="postDependencies" name="postDependencies"></textarea>
+          </p>
+
+          <p>
             <label for="gizmoJS">Gizmo JS</label>
             <textarea id="gizmoJS" name="gizmoJS"></textarea>
           </p>
@@ -60,17 +70,24 @@ module.exports = function renderWorkbench (state, emit, profile) {
 
   async function onSubmit (e) {
     e.preventDefault()
-
+    let gizmoDependencies = e.target.gizmoDependencies.value
+    gizmoDependencies = gizmoDependencies ? gizmoDependencies.replace(/\s/g, '').split(',') : []
+    let postDependencies = e.target.postDependencies.value
+    postDependencies = postDependencies ? postDependencies.replace(/\s/g, '').split(',') : []
     state.publishGizmo({
       gizmoName: e.target.gizmoName.value || '',
       gizmoDescription: e.target.gizmoDescription.value || '',
       gizmoDocs: e.target.gizmoDocs.value || '',
+      gizmoDependencies,
+      postDependencies,
       gizmoJS: e.target.gizmoJS.value || ''
     })
 
     document.getElementById('gizmoName').value = ''
     document.getElementById('gizmoDescription').value = ''
     document.getElementById('gizmoDocs').value = ''
+    document.getElementById('gizmoDependencies').value = ''
+    document.getElementById('postDependencies').value = ''
     document.getElementById('gizmoJS').value = ''
   }
 }

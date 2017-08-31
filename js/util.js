@@ -61,6 +61,9 @@ exports.getViewPostURL = function (post) {
 }
 
 exports.getViewGizmoURL = function (gizmo) {
+  if (typeof gizmo === 'string') {
+    return '/#gizmo/' + gizmo.slice('dat://'.length)
+  }
   return '/#gizmo/' + gizmo._url.slice('dat://'.length)
 }
 
