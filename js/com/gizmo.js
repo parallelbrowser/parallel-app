@@ -74,7 +74,7 @@ module.exports = function renderGizmo (state, emit, gizmo, opts = {}) {
       return html`
         <li>
           <a href=${getViewGizmoURL(d.url)}>
-            <p>${d.name}</p>
+            <p>----${d.name}</p>
           </a>
         </li>
       `

@@ -19,10 +19,9 @@ module.exports = function renderPost (state, emit, post, showDetails) {
             <a href=${getViewPostURL(post)} target="_blank"><span class="date">${niceDate(post.createdAt)}</span></a>
           </div>
 
-          <p class="content">Text: ${post.postText}</p>
+          <p class="content">${post.postText}</p>
           <a href=${getViewGizmoURL(post.gizmo)}> <p class="content">Gizmo Used: ${post.gizmo.gizmoName}</p></a>
-          <p class="content">Gizmo Description: ${post.gizmo.gizmoDescription}</p>
-          <a href=${post.postHTTP} target="_blank"> <p class="content">Widget Link: ${post.postHTTP}</p></a>
+          <a href=${post.postHTTP} target="_blank"> <p class="content">Link to Post: ${post.postHTTP}</p></a>
           ${showDetails ? html`
             <div>
               <p class="content">Post JS: ${post.postJS}</p>
