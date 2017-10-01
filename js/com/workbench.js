@@ -18,23 +18,33 @@ module.exports = function renderWorkbench (state, emit, profile) {
           </div>
           <input name="avatar" type="hidden"/>
           <p>
-            <label for="prescriptName">Gizmo Name</label>
-            <input id="prescriptName" name="prescriptName" type="text" autofocus />
+            <label for="gizmoName">Gizmo Name</label>
+            <input id="gizmoName" name="gizmoName" type="text" autofocus />
           </p>
 
           <p>
-            <label for="prescriptInfo">Gizmo Info</label>
-            <input id="prescriptInfo" name="prescriptInfo" type="text" autofocus />
+            <label for="gizmoDescription">Gizmo Description</label>
+            <input id="gizmoDescription" name="gizmoDescription" type="text" autofocus />
           </p>
 
           <p>
-            <label for="prescriptJS">Gizmo JS</label>
-            <textarea id="prescriptJS" name="prescriptJS"></textarea>
+            <label for="gizmoDocs">Gizmo Docs</label>
+            <textarea id="gizmoDocs" name="gizmoDocs"></textarea>
           </p>
 
           <p>
-            <label for="prescriptCSS">Gizmo CSS</label>
-            <textarea id="prescriptCSS" name="prescriptCSS"></textarea>
+            <label for="gizmoDependencies">Gizmo Dependencies</label>
+            <textarea id="gizmoDependencies" name="gizmoDependencies"></textarea>
+          </p>
+
+          <p>
+            <label for="postDependencies">Post Dependencies</label>
+            <textarea id="postDependencies" name="postDependencies"></textarea>
+          </p>
+
+          <p>
+            <label for="gizmoJS">Gizmo JS</label>
+            <textarea id="gizmoJS" name="gizmoJS"></textarea>
           </p>
 
           <p>
@@ -60,18 +70,24 @@ module.exports = function renderWorkbench (state, emit, profile) {
 
   async function onSubmit (e) {
     e.preventDefault()
-
-    // DZ - add await so the prescript is actually saved
-    await state.savePrescript({
-      prescriptName: e.target.prescriptName.value || '',
-      prescriptInfo: e.target.prescriptInfo.value || '',
-      prescriptJS: e.target.prescriptJS.value || '',
-      prescriptCSS: e.target.prescriptCSS.value || ''
+    let gizmoDependencies = e.target.gizmoDependencies.value
+    gizmoDependencies = gizmoDependencies ? gizmoDependencies.replace(/\s/g, '').split(',') : []
+    let postDependencies = e.target.postDependencies.value
+    postDependencies = postDependencies ? postDependencies.replace(/\s/g, '').split(',') : []
+    state.publishGizmo({
+      gizmoName: e.target.gizmoName.value || '',
+      gizmoDescription: e.target.gizmoDescription.value || '',
+      gizmoDocs: e.target.gizmoDocs.value || '',
+      gizmoDependencies,
+      postDependencies,
+      gizmoJS: e.target.gizmoJS.value || ''
     })
 
-    document.getElementById('prescriptName').value = ''
-    document.getElementById('prescriptInfo').value = ''
-    document.getElementById('prescriptJS').value = ''
-    document.getElementById('prescriptCSS').value = ''
+    document.getElementById('gizmoName').value = ''
+    document.getElementById('gizmoDescription').value = ''
+    document.getElementById('gizmoDocs').value = ''
+    document.getElementById('gizmoDependencies').value = ''
+    document.getElementById('postDependencies').value = ''
+    document.getElementById('gizmoJS').value = ''
   }
 }

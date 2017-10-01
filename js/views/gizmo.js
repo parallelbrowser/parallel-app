@@ -1,24 +1,29 @@
-/* globals window */
-
 const html = require('choo/html')
 const loadingView = require('./loading')
 const renderError = require('../com/error')
 const renderHeader = require('../com/header')
-const renderBroadcast = require('../com/broadcast')
+const renderGizmo = require('../com/gizmo')
 const {getViewProfileURL} = require('../util')
 
-module.exports = function broadcastView (state, emit) {
+module.exports = function gizmoView (state, emit) {
   if (!state.isAppLoaded) {
     return loadingView(state, emit)
   }
-  if (!state.currentBroadcast) {
-    state.loadCurrentBroadcast('dat://' + state.params.wildcard)
+  if (!state.currentGizmo) {
+    state.loadCurrentGizmo('dat://' + state.params.wildcard)
     return loadingView(state, emit)
   } else {
-    var author = state.currentBroadcast.author
+    var author = state.currentGizmo.author
   }
 
-  const showDetails = true
+  if (!state.currentProfile) {
+    state.loadProfile(state.currentGizmo._origin, {getFollowProfiles: true})
+    return loadingView(state, emit)
+  }
+
+  const opts = {
+    showDetails: true
+  }
 
   return html`
     <main>
@@ -28,9 +33,9 @@ module.exports = function broadcastView (state, emit) {
           ${renderError(state, emit)}
           <a href=${getViewProfileURL(author)} class="breadcrumbs">
             <i class="fa fa-caret-left"></i>
-            Back to ${author.name}'s feed
+            ${author.name}'s profile
           </a>
-          ${renderBroadcast(state, emit, state.currentBroadcast, showDetails)}
+          ${renderGizmo(state, emit, state.currentGizmo, opts)}
         </div>
       </div>
     </main>

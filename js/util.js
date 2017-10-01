@@ -56,20 +56,24 @@ exports.getViewFollowsURL = function (profile) {
   return '/#profile/' + url.slice('dat://'.length) + '/follows'
 }
 
-exports.getViewBroadcastURL = function (broadcast) {
-  return '/#broadcast/' + broadcast._url.slice('dat://'.length)
+exports.getViewPostURL = function (post) {
+  return '/#post/' + post._url.slice('dat://'.length)
 }
 
-exports.getIsFollowed = async function (state, profile) {
-  if (state.userProfile && profile._origin !== state.userProfile._origin) {
-    return await state.DB().isFollowing(state.userProfile._origin, profile._origin)
+exports.getViewGizmoURL = function (gizmo) {
+  if (typeof gizmo === 'string') {
+    return '/#gizmo/' + gizmo.slice('dat://'.length)
   }
-  return false
+  return '/#gizmo/' + gizmo._url.slice('dat://'.length)
 }
 
-// TCW -- added url for prescript
+exports.getViewSubgizmosURL = function (profile) {
+  if (!profile) return ''
+  var url = profile._origin ? profile._origin : profile
+  return '/#gizmos/' + url.slice('dat://'.length)
+}
 
-exports.getWorkbenchURL = function (profile) {
+exports.getViewWorkbenchURL = function (profile) {
   return '/#workbench'
 }
 
@@ -79,18 +83,9 @@ exports.getViewShopURL = function (profile) {
   return '/#shop/' + url.slice('dat://'.length)
 }
 
-exports.getViewPrescriptURL = function (prescript) {
-  return '/#prescript/' + prescript._url.slice('dat://'.length)
+exports.getIsFollowed = async function (state, profile) {
+  if (state.userProfile && profile._origin !== state.userProfile._origin) {
+    return await state.DB().isFollowing(state.userProfile._origin, profile._origin)
+  }
+  return false
 }
-
-exports.getViewSubscriptOriginURL = function (subscript) {
-  return '/#prescript/' + subscript.subscriptURL.slice('dat://'.length)
-}
-
-exports.getViewSubscriptsURL = function (profile) {
-  if (!profile) return ''
-  var url = profile._origin ? profile._origin : profile
-  return '/#subscripts/' + url.slice('dat://'.length)
-}
-
-// TCW -- end

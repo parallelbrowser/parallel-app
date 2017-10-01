@@ -7,7 +7,7 @@ const renderHeader = require('../com/header')
 const renderProfileEditor = require('../com/profile-editor')
 const {getViewProfileURL} = require('../util')
 
-module.exports = function broadcastView (state, emit) {
+module.exports = function postView (state, emit) {
   if (!state.isAppLoaded) {
     return loadingView(state, emit)
   }

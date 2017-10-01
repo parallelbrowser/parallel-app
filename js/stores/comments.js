@@ -6,7 +6,6 @@ module.exports = function commentsStore (state, emitter) {
 
   emitter.on('submit-comment', async (parent) => {
     try {
-      // add the comment, which is just a broadcast
       await state.DB().broadcast(
         state.userProfile._origin,
         {text: state.commentDrafts[parent._url], threadParent: parent._url})
@@ -19,6 +18,13 @@ module.exports = function commentsStore (state, emitter) {
     // clear form
     state.commentDrafts[parent._url] = ''
     emitter.emit('render')
-    state.loadMainFeed() // TODO?
+    if (parent.gizmoName) {
+      state.loadUserShopGizmos()
+      state.loadUserSubgizmos()
+      state.loadCurrentGizmo(parent._url)
+    } else {
+      state.loadMainFeed() // TODO?
+      state.loadCurrentPost(parent._url)
+    }
   })
 }

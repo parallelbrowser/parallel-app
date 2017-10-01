@@ -1,15 +1,15 @@
 const html = require('choo/html')
 
-module.exports = function renderLikeBtn (emit, broadcast) {
+module.exports = function renderLikeBtn (emit, post) {
   var likeAction
-  if (broadcast.votes.currentUsersVote === 1) {
+  if (post.votes.currentUsersVote === 1) {
     likeAction = html`
-      <button onclick=${() => emit('unlike', broadcast)}>
+      <button onclick=${() => emit('unlike', post)}>
         <i class="fa fa-star"></i>
       </button>`
   } else {
     likeAction = html`
-      <button onclick=${() => emit('like', broadcast)}>
+      <button onclick=${() => emit('like', post)}>
         <i class="fa fa-star-o"></i>
       </button>`
   }
@@ -17,6 +17,6 @@ module.exports = function renderLikeBtn (emit, broadcast) {
   return html`
     <span class="action like">
       ${likeAction}
-      <a class="count">${broadcast.votes.up || ''}</a>
+      <a class="count">${post.votes.up || ''}</a>
     </span>`
 }

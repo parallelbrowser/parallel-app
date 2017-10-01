@@ -16,8 +16,8 @@ module.exports = function profileView (state, emit) {
     state.loadProfile('dat://' + state.params.key)
     return loadingView(state, emit)
   }
-  if (!state.broadcasts) {
-    state.loadUserBroadcasts()
+  if (!state.posts) {
+    state.loadUserPosts()
     return loadingView(state, emit)
   }
 

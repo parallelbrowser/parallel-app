@@ -2,6 +2,7 @@ const html = require('choo/html')
 const loadingView = require('./loading')
 const renderError = require('../com/error')
 const renderHeader = require('../com/header')
+// const renderPostForm = require('../com/post-form')
 const renderFeed = require('../com/feed')
 const renderProfile = require('../com/profile-card')
 const renderCreateProfileModal = require('../com/create-profile-modal')
@@ -10,7 +11,7 @@ module.exports = function mainView (state, emit) {
   if (!state.isAppLoaded) {
     return loadingView(state, emit)
   }
-  if (!state.broadcasts) {
+  if (!state.posts) {
     state.loadMainFeed()
   }
 
