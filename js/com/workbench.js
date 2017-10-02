@@ -48,6 +48,11 @@ module.exports = function renderWorkbench (state, emit, profile) {
           </p>
 
           <p>
+            <label for="postJS">Post JS</label>
+            <textarea id="postJS" name="postJS"></textarea>
+          </p>
+
+          <p>
             <a href=${getViewProfileURL(profile)} class="btn">Cancel</a>
             <button type="submit" class="btn primary">Save</button>
           </p>
@@ -80,7 +85,8 @@ module.exports = function renderWorkbench (state, emit, profile) {
       gizmoDocs: e.target.gizmoDocs.value || '',
       gizmoDependencies,
       postDependencies,
-      gizmoJS: e.target.gizmoJS.value || ''
+      gizmoJS: e.target.gizmoJS.value || '',
+      postJS: e.target.postJS.value || ''
     })
 
     document.getElementById('gizmoName').value = ''
@@ -89,5 +95,6 @@ module.exports = function renderWorkbench (state, emit, profile) {
     document.getElementById('gizmoDependencies').value = ''
     document.getElementById('postDependencies').value = ''
     document.getElementById('gizmoJS').value = ''
+    document.getElementById('postJS').value = ''
   }
 }
