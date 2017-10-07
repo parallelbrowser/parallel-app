@@ -46,6 +46,7 @@ module.exports = function renderGizmo (state, emit, gizmo, opts = {}) {
                   </ol>
                 ` : ''}
               <p class="content">Gizmo JS: ${gizmo.gizmoJS}</p>
+              <p class="content">Post JS: ${gizmo.postJS}</p>
             </div>
           ` : ''}
         </div>

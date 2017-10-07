@@ -2,15 +2,19 @@ const html = require('choo/html')
 const renderFollowBtn = require('./follow-btn')
 const renderAvatar = require('./avatar')
 const renderEditProfileBtn = require('./edit-profile-btn')
-const {getViewProfileURL, getViewFollowsURL, getViewShopURL, getViewSubgizmosURL, pluralize} = require('../util')
+const {getViewProfileURL, getViewFollowsURL, getViewShopURL, getViewSubgizmosURL, getViewFindFriendURL, getViewKeysURL, pluralize} = require('../util')
 
 module.exports = function renderProfileCard (state, emit, profile) {
   if (!profile) {
     return ''
   }
+  console.log('state.userProfile', state.userProfile)
+  console.log('state.currentProfile', state.currentProfile)
+  console.log('profile', profile)
+
+  var numFollows = profile.follows ? profile.follows.length : 0
   var isUser = profile._origin === state.userProfile._origin
 
-  // DZ - change layout <br></br>
   return html`
     <div class="profile-card">
       <div class="profile-card-header">
@@ -22,7 +26,8 @@ module.exports = function renderProfileCard (state, emit, profile) {
           <h1 class="name"><a href=${getViewProfileURL(profile)}>${profile.name}</a></h1>
           <div class="profile-card-stats">
             <a class="stat" href=${getViewFollowsURL(profile)}>
-              <span class="label">Following</span>
+              <span class="value">${numFollows}</span>
+              <span class="label">following</span>
             </a>
             <span aria-hidden="true">•</span>
             <a class="stat" href=${getViewProfileURL(profile)}>
@@ -30,14 +35,24 @@ module.exports = function renderProfileCard (state, emit, profile) {
               <span class="label">${pluralize(profile.numPosts, 'post')}</span>
             </a>
             <span aria-hidden="true">•</span>
-            <a class="stat" href=${getViewSubscriptsURL(profile)}>
+            <a class="stat" href=${getViewShopURL(profile)}>
               <span class="value"></span>
-              <span class="label">Gizmos</span>
+              <span class="label">Shop</span>
             </a>
             <span aria-hidden="true">•</span>
             <a class="stat" href=${getViewSubgizmosURL(profile)}>
               <span class="value"></span>
               <span class="label">Gizmos</span>
+            </a>
+            <span aria-hidden="true">•</span>
+            <a class="stat" href=${getViewFindFriendURL(profile)}>
+              <span class="value"></span>
+              <span class="label">Find Friend</span>
+            </a>
+            <span aria-hidden="true">•</span>
+            <a class="stat" href=${getViewKeysURL(profile)}>
+              <span class="value"></span>
+              <span class="label">Setup</span>
             </a>
           </div>
         </div>

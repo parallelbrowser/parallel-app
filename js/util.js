@@ -42,6 +42,7 @@ exports.getAvatarStyle = function (profile) {
 }
 
 exports.getViewProfileURL = function (profile) {
+  console.log('profile in view prof')
   if (!profile) return ''
   var url = profile._origin ? profile._origin : profile
   return '/#profile/' + url.slice('dat://'.length)
@@ -75,6 +76,14 @@ exports.getViewSubgizmosURL = function (profile) {
 
 exports.getViewWorkbenchURL = function (profile) {
   return '/#workbench'
+}
+
+exports.getViewFindFriendURL = function (profile) {
+  return '/#find-friend'
+}
+
+exports.getViewKeysURL = function (profile) {
+  return '/#keys'
 }
 
 exports.getViewShopURL = function (profile) {

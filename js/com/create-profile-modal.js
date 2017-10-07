@@ -15,7 +15,7 @@ module.exports = function createProfileModal (state, emit, profile) {
         </h1>
 
         <p class="modal-subtitle">
-          Set up your profile to get started.
+          Important: When you're finished creating your profile, click on the "Setup" link on the main page.
         </p>
 
         <div class="modal-main">
