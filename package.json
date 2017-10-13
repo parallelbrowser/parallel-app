@@ -30,7 +30,7 @@
     "choo": "^5.6.2",
     "debounce": "^1.0.2",
     "moment": "^2.18.1",
-    "parallel-scratch-api": "^0.9.3"
+    "parallel-api": "git://github.com/parallelbrowser/parallel-api.git#ingest-test"
   },
   "devDependencies": {
     "less": "^2.7.2"

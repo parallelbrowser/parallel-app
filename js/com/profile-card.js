@@ -8,9 +8,6 @@ module.exports = function renderProfileCard (state, emit, profile) {
   if (!profile) {
     return ''
   }
-  console.log('state.userProfile', state.userProfile)
-  console.log('state.currentProfile', state.currentProfile)
-  console.log('profile', profile)
 
   var numFollows = profile.follows ? profile.follows.length : 0
   var isUser = profile._origin === state.userProfile._origin

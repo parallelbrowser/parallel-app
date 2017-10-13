@@ -1,4 +1,4 @@
-const {getViewShopURL} = require('../util')
+const {getViewShopURL, getViewProfileURL} = require('../util')
 
 module.exports = function gizmoStore (state, emitter) {
   state.error = null
@@ -92,6 +92,22 @@ module.exports = function gizmoStore (state, emitter) {
       console.error(e)
     }
     emitter.emit('render')
+  }
+
+  state.setupParallel = async function () {
+    try {
+      await state.loadProfile('dat://7ab172e713e390a19c732c3dc47c99dda08d301e7f301d1845199cd3e50b2a00', {getFollowProfiles: true})
+      await state.toggleFollow(state.currentProfile)
+      await state.loadUserShopGizmos()
+      state.shopGizmos = state.shopGizmos.filter(sg => {
+        return sg.gizmoName !== 'jQuery Full'
+      })
+      await state.DB().subscribeMany(state.userProfile._origin, state.shopGizmos)
+    } catch (e) {
+      state.error = e
+      console.log(e)
+    }
+    emitter.emit('pushState', getViewProfileURL(state.userProfile))
   }
 
   emitter.on('gizmo-like', async gizmo => {

@@ -18,7 +18,6 @@ module.exports = function feedStore (state, emitter) {
         requester: state.userProfile._origin
       })
     } catch (e) {
-      console.log('in loadUserBroadcasts', e);
       state.error = e
       console.log('error in load main feed', e)
     }
