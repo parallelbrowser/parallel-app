@@ -9,6 +9,7 @@ app.use(require('./stores/header'))
 app.use(require('./stores/gizmos'))
 app.use(require('./stores/comments'))
 app.use(require('./stores/find-friend'))
+app.use(require('./stores/parallel'))
 
 app.route('/', require('./views/main'))
 app.route('/profile/:key', require('./views/profile'))

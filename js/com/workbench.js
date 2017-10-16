@@ -48,8 +48,18 @@ module.exports = function renderWorkbench (state, emit, profile) {
           </p>
 
           <p>
+            <label for="gizmoCSS">Gizmo CSS</label>
+            <textarea id="gizmoCSS" name="gizmoCSS"></textarea>
+          </p>
+
+          <p>
             <label for="postJS">Post JS</label>
             <textarea id="postJS" name="postJS"></textarea>
+          </p>
+
+          <p>
+            <label for="postCSS">Post CSS</label>
+            <textarea id="postCSS" name="postCSS"></textarea>
           </p>
 
           <p>
@@ -86,7 +96,9 @@ module.exports = function renderWorkbench (state, emit, profile) {
       gizmoDependencies,
       postDependencies,
       gizmoJS: e.target.gizmoJS.value || '',
-      postJS: e.target.postJS.value || ''
+      gizmoCSS: e.target.gizmoCSS.value || '',
+      postJS: e.target.postJS.value || '',
+      postCSS: e.target.postCSS.value || ''
     })
 
     document.getElementById('gizmoName').value = ''
@@ -95,6 +107,8 @@ module.exports = function renderWorkbench (state, emit, profile) {
     document.getElementById('gizmoDependencies').value = ''
     document.getElementById('postDependencies').value = ''
     document.getElementById('gizmoJS').value = ''
+    document.getElementById('gizmoCSS').value = ''
     document.getElementById('postJS').value = ''
+    document.getElementById('postCSS').value = ''
   }
 }

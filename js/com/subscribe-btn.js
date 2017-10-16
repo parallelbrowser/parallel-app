@@ -3,11 +3,11 @@ const html = require('choo/html')
 module.exports = function renderSubscribeBtn (state, emit, gizmo) {
   if (gizmo.isSubscribed) {
     return html`
-      <button id="subscribe-toggle" class="btn center" onmouseout=${onShowSubscribedButton} onmouseover=${onShowUnsubscribeButton} onclick=${toggleSubscribe}>Subscribed<i class="fa fa-check"></i></button>
+      <button id="subscribe-toggle" class="btn center subscribe" onmouseout=${onShowSubscribedButton} onmouseover=${onShowUnsubscribeButton} onclick=${toggleSubscribe}>Subscribed<i class="fa fa-check"></i></button>
     `
   } else {
     return html`
-      <button id="subscribe-toggle" class="btn primary center sub" onclick=${toggleSubscribe}>Subscribe<i class="fa fa-plus"></i></button>
+      <button id="subscribe-toggle" class="btn primary center sub subscribe" onclick=${toggleSubscribe}>Subscribe<i class="fa fa-plus"></i></button>
     `
   }
 

@@ -17,6 +17,8 @@ module.exports = function renderKeys (state, emit, profile) {
         <br>
         <h3>Set Up Your Toolkit</h3>
         <button id="follow-toggle" class="btn primary center" onclick=${() => setupParallel()}>Click here to set up your toolkit.</button>
+        <h3>Refresh Network</h3>
+        <button id="follow-toggle" class="btn primary center" onclick=${() => refreshNetwork()}>Click here to refresh the network and follow new users.</button>
         <h3>Using Your Sidebar (To do)</h3>
       </div>
     </div>
@@ -24,5 +26,13 @@ module.exports = function renderKeys (state, emit, profile) {
 
   function setupParallel () {
     state.setupParallel()
+  }
+
+  function refreshNetwork () {
+    state.refreshNetwork()
+  }
+
+  function sendPulse () {
+    state.sendPulse()
   }
 }

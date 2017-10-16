@@ -12,6 +12,7 @@ module.exports = function feedStore (state, emitter) {
     try {
       state.posts = await state.DB().listPosts({
         fetchAuthor: true,
+        fetchReplies: true,
         countVotes: true,
         reverse: true,
         fetchGizmo: true,
@@ -29,6 +30,7 @@ module.exports = function feedStore (state, emitter) {
       state.posts = await state.DB(state.currentProfile).listPosts({
         fetchAuthor: true,
         countVotes: true,
+        fetchReplies: true,
         reverse: true,
         author: state.currentProfile._origin,
         fetchGizmo: true,

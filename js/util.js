@@ -1,6 +1,7 @@
 /* globals localStorage */
 
 const moment = require('moment')
+const {PARALLEL_PROFILE_URL} = require('./const')
 
 exports.pluralize = function (num, base, suffix = 's') {
   if (num === 1) { return base }
@@ -93,6 +94,10 @@ exports.getViewShopURL = function (profile) {
   if (!profile) return ''
   var url = profile._origin ? profile._origin : profile
   return '/#shop/' + url.slice('dat://'.length)
+}
+
+exports.getViewNetworkURL = function () {
+  return '/#profiles/' + PARALLEL_PROFILE_URL.slice('dat://'.length) + '/follows'
 }
 
 exports.getIsFollowed = async function (state, profile) {
