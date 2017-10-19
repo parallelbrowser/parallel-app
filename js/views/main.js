@@ -17,6 +17,11 @@ module.exports = function mainView (state, emit) {
   if (!state.userProfile) {
     return html`<main>${renderCreateProfileModal(state, emit)}</main>`
   }
+
+  if (!state.isRefreshed) {
+    state.refreshNetwork()
+  }
+
   return html`
     <main>
       ${renderHeader(state, emit)}

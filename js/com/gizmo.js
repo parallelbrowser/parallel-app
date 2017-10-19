@@ -18,12 +18,12 @@ module.exports = function renderGizmo (state, emit, gizmo, opts = {}) {
   const commentsExpanded = state.expandedGizmos.indexOf(gizmo._url) !== -1
   return html`
     <div class="post parent}">
-      <div class="post-content">
+      <div class="post-content break-words">
         <a class="avatar-container" href=${getViewProfileURL(gizmo.author)}>
           ${renderAvatar(gizmo.author)}
         </a>
 
-        <div class="post-container">
+        <div class="post-container break-words">
           <div class="metadata">
             <a href=${getViewProfileURL(gizmo.author)} class="name">${gizmo.author.name}</span>
             <a href=${getViewGizmoURL(gizmo)} target="_blank"><span class="date">${niceDate(gizmo.createdAt)}</span></a>

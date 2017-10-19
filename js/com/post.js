@@ -5,7 +5,6 @@ const renderComments = require('./comments')
 const {getViewProfileURL, getViewPostURL, getViewGizmoURL, niceDate, pluralize} = require('../util')
 
 module.exports = function renderPost (state, emit, post, showDetails) {
-  console.log('post in renderPost', post)
   var commentsExpanded = state.expandedPosts.indexOf(post._url) !== -1
   const showCode = state.showCode
   return html`

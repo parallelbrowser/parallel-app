@@ -32,14 +32,14 @@ module.exports = function renderProfileCard (state, emit, profile) {
               <span class="label">${pluralize(profile.numPosts, 'post')}</span>
             </a>
             <span aria-hidden="true">•</span>
-            <a class="stat" href=${getViewShopURL(profile)}>
-              <span class="value"></span>
-              <span class="label">Shop</span>
-            </a>
-            <span aria-hidden="true">•</span>
             <a class="stat" href=${getViewSubgizmosURL(profile)}>
               <span class="value"></span>
               <span class="label">Gizmos</span>
+            </a>
+            <span aria-hidden="true">•</span>
+            <a class="stat" href=${getViewShopURL(profile)}>
+              <span class="value"></span>
+              <span class="label">Shop</span>
             </a>
             <span aria-hidden="true">•</span>
             <a class="stat" href=${getViewFindFriendURL(profile)}>
