@@ -2,7 +2,6 @@ const html = require('choo/html')
 const loadingView = require('./loading')
 const renderError = require('../com/error')
 const renderHeader = require('../com/header')
-// const renderPostForm = require('../com/post-form')
 const renderFeed = require('../com/feed')
 const renderProfile = require('../com/profile-card')
 const renderCreateProfileModal = require('../com/create-profile-modal')
@@ -18,6 +17,11 @@ module.exports = function mainView (state, emit) {
   if (!state.userProfile) {
     return html`<main>${renderCreateProfileModal(state, emit)}</main>`
   }
+
+  if (!state.isRefreshed) {
+    state.refreshNetwork()
+  }
+
   return html`
     <main>
       ${renderHeader(state, emit)}

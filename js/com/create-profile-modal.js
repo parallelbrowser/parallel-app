@@ -14,10 +14,6 @@ module.exports = function createProfileModal (state, emit, profile) {
           Welcome to Parallel!
         </h1>
 
-        <p class="modal-subtitle">
-          Important: When you're finished creating your profile, click on the "Setup" link on the main page.
-        </p>
-
         <div class="modal-main">
           <div class="content">
             <div class="avatar avatar-editor">

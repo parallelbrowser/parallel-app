@@ -1,6 +1,6 @@
 /* globals DatArchive FileReader */
 
-const {getUserProfileURL, setUserProfileURL, getViewProfileURL, getIsFollowed} = require('../util')
+const {getUserProfileURL, setUserProfileURL, getViewProfileURL, getIsFollowed, getViewKeysURL} = require('../util')
 
 const SUGGESTED_PROFILE_URLS = [
   // 'dat://5d7f172d6a0c8fb69eb61f836087e761d87b2174ebe96f10b9954814087a8552/'
@@ -103,7 +103,7 @@ module.exports = async function profileStore (state, emitter) {
       emitter.emit('render')
       return
     }
-    emitter.emit('pushState', getViewProfileURL(state.userProfile))
+    emitter.emit('pushState', getViewKeysURL(state.userProfile))
   }
 
   state.setAvatar = async (archive, file) => {

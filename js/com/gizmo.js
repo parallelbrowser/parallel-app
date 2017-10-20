@@ -13,15 +13,17 @@ module.exports = function renderGizmo (state, emit, gizmo, opts = {}) {
     state.currentProfile._origin === state.userProfile._origin) {
     return ''
   }
+  const showCode = state.showCode
+
   const commentsExpanded = state.expandedGizmos.indexOf(gizmo._url) !== -1
   return html`
     <div class="post parent}">
-      <div class="post-content">
+      <div class="post-content break-words">
         <a class="avatar-container" href=${getViewProfileURL(gizmo.author)}>
           ${renderAvatar(gizmo.author)}
         </a>
 
-        <div class="post-container">
+        <div class="post-container break-words">
           <div class="metadata">
             <a href=${getViewProfileURL(gizmo.author)} class="name">${gizmo.author.name}</span>
             <a href=${getViewGizmoURL(gizmo)} target="_blank"><span class="date">${niceDate(gizmo.createdAt)}</span></a>
@@ -32,21 +34,28 @@ module.exports = function renderGizmo (state, emit, gizmo, opts = {}) {
           ${opts.showDetails ? html`
             <div>
               <p class="content">Gizmo Docs: ${gizmo.gizmoDocs}</p>
-              <a><p class="content" onclick=${() => alert(gizmo._url)}>Gizmo URL: Click for link</p></a>
-              <p class="content">Gizmo Dependencies: ${gizmo.gizmoDependencies.length ? '' : 'No gizmo dependencies.'}</p>
-                ${gizmo.gizmoDependencies.length ? html`
-                  <ol>
-                    ${niceDependencies(gizmo, true)}
-                  </ol>
-                ` : ''}
-              <p class="content">Post Dependencies: ${gizmo.postDependencies.length ? '' : 'No post dependencies.'}</p>
-                ${gizmo.postDependencies.length ? html`
-                  <ol>
-                    ${niceDependencies(gizmo, false)}
-                  </ol>
-                ` : ''}
-              <p class="content">Gizmo JS: ${gizmo.gizmoJS}</p>
-              <p class="content">Post JS: ${gizmo.postJS}</p>
+              <button class="btn primary center show-code" onclick=${() => onToggleShowCode()}>Show Code</button>
+              ${showCode ? html `
+                <div>
+                  <p class="content">Gizmo URL: ${gizmo._url}</p>
+                  <p class="content">Gizmo Dependencies: ${gizmo.gizmoDependencies.length ? '' : 'No gizmo dependencies.'}</p>
+                    ${gizmo.gizmoDependencies.length ? html`
+                      <ol>
+                        ${niceDependencies(gizmo, true)}
+                      </ol>
+                    ` : ''}
+                  <p class="content">Post Dependencies: ${gizmo.postDependencies.length ? '' : 'No post dependencies.'}</p>
+                    ${gizmo.postDependencies.length ? html`
+                      <ol>
+                        ${niceDependencies(gizmo, false)}
+                      </ol>
+                    ` : ''}
+                  <p class="content">Gizmo JS: ${gizmo.gizmoJS}</p>
+                  <p class="content">Gizmo CSS: ${gizmo.gizmoCSS}</p>
+                  <p class="content">Post JS: ${gizmo.postJS}</p>
+                  <p class="content">Post CSS: ${gizmo.postCSS}</p>
+                </div>
+              ` : ''}
             </div>
           ` : ''}
         </div>
@@ -74,7 +83,7 @@ module.exports = function renderGizmo (state, emit, gizmo, opts = {}) {
     arr = arr.map(d => {
       return html`
         <li>
-          <a href=${getViewGizmoURL(d.url)}>
+          <a href=${getViewGizmoURL(d.url)} class="breadcrumbs">
             <p>----${d.name}</p>
           </a>
         </li>
@@ -90,6 +99,11 @@ module.exports = function renderGizmo (state, emit, gizmo, opts = {}) {
     } else {
       state.expandedGizmos.splice(idx, 1)
     }
+    emit('render')
+  }
+
+  function onToggleShowCode () {
+    state.showCode = !showCode
     emit('render')
   }
 }

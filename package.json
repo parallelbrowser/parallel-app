@@ -29,8 +29,11 @@
   "dependencies": {
     "choo": "^5.6.2",
     "debounce": "^1.0.2",
+    "hypercore": "^6.10.1",
+    "hyperdiscovery": "^7.0.0",
     "moment": "^2.18.1",
-    "parallel-scratch-api": "^0.9.3"
+    "parallel-api": "git://github.com/parallelbrowser/parallel-api.git#ingest-test",
+    "random-access-memory": "^2.4.0"
   },
   "devDependencies": {
     "less": "^2.7.2"

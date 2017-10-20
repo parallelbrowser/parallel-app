@@ -1,6 +1,7 @@
 /* globals localStorage */
 
 const moment = require('moment')
+const {PARALLEL_PROFILE_URL} = require('./const')
 
 exports.pluralize = function (num, base, suffix = 's') {
   if (num === 1) { return base }
@@ -42,7 +43,6 @@ exports.getAvatarStyle = function (profile) {
 }
 
 exports.getViewProfileURL = function (profile) {
-  console.log('profile in view prof')
   if (!profile) return ''
   var url = profile._origin ? profile._origin : profile
   return '/#profile/' + url.slice('dat://'.length)
@@ -86,10 +86,18 @@ exports.getViewKeysURL = function (profile) {
   return '/#keys'
 }
 
+exports.getViewSidebarSetupURL = function (profile) {
+  return 'beaker://setup/' + profile
+}
+
 exports.getViewShopURL = function (profile) {
   if (!profile) return ''
   var url = profile._origin ? profile._origin : profile
   return '/#shop/' + url.slice('dat://'.length)
+}
+
+exports.getViewNetworkURL = function () {
+  return '/#profiles/' + PARALLEL_PROFILE_URL.slice('dat://'.length) + '/follows'
 }
 
 exports.getIsFollowed = async function (state, profile) {

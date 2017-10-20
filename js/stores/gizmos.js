@@ -6,6 +6,7 @@ module.exports = function gizmoStore (state, emitter) {
   state.shopGizmos = null
   state.currentGizmo = null
   state.expandedGizmos = []
+  state.showCode = false
 
   emitter.on('pushState', () => {
     // clear page state
@@ -14,6 +15,7 @@ module.exports = function gizmoStore (state, emitter) {
     state.shopGizmos = null
     state.currentGizmo = null
     state.expandedGizmos = []
+    state.showCode = false
   })
 
   state.publishGizmo = async (values) => {

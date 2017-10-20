@@ -1,6 +1,6 @@
 /* globals DatArchive */
 
-const ParallelAPI = require('parallel-scratch-api')
+const ParallelAPI = require('parallel-api')
 
 module.exports = async function dbStore (state, emitter) {
   var userURL = null
@@ -20,8 +20,6 @@ module.exports = async function dbStore (state, emitter) {
       // check if the target is the user, or is followed by the user
       // if it is, give the main userdb
       // otherwise, give the cachedb
-
-      console.log('there is a target', target);
 
       if (typeof target === 'object' && target._origin) {
         target = target._origin
@@ -45,7 +43,6 @@ module.exports = async function dbStore (state, emitter) {
     userDB = await ParallelAPI.open(new DatArchive(userURL))
     emitter.emit('userdb-ready')
   }
-
   // load the cache DB by default
   cacheDB = await ParallelAPI.open(/* cache db */)
   emitter.emit('cachedb-ready')

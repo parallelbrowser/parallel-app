@@ -31,7 +31,6 @@ module.exports = function renderComments (state, emit, element) {
   `
   function onDetectEnter (e) {
     if (e.which == 13 || e.keyCode == 13) {
-      console.log('enter detected')
       e.preventDefault()
       emit('submit-comment', element)
     }
