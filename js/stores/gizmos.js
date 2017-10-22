@@ -59,6 +59,7 @@ module.exports = function gizmoStore (state, emitter) {
       state.error = e
       console.error(e)
     }
+    console.log('state.subgizmos', state.subgizmos)
     emitter.emit('render')
   }
 

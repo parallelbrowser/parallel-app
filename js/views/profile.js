@@ -16,7 +16,7 @@ module.exports = function profileView (state, emit) {
     state.loadProfile('dat://' + state.params.key)
     return loadingView(state, emit)
   }
-  if (!state.posts) {
+  if (!state.posts && state.isFollowingUser) {
     state.loadUserPosts()
     return loadingView(state, emit)
   }
@@ -32,7 +32,7 @@ module.exports = function profileView (state, emit) {
 
           <div class="feed-container">
             ${renderError(state, emit)}
-            ${renderFeed(state, emit)}
+            ${state.isFollowingUser ? renderFeed(state, emit) : ''}
           </div>
         </div>
       </div>

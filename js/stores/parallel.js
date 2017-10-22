@@ -32,7 +32,8 @@ module.exports = function parallelStore (state, emitter) {
         if (!isFollowing) {
           await state.toggleFollow(state.currentProfile)
         }
-        await state.DB().followMany(state.userProfile._origin, state.currentProfile.follows)
+        const follows = state.currentProfile.follows.filter(f => { f.url !== state.userProfile._origin })
+        await state.DB().followMany(state.userProfile._origin, follows)
         state.currentProfile = state.userProfile
       } catch (e) {
         state.error = e

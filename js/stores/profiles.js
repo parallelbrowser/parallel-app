@@ -11,10 +11,12 @@ module.exports = async function profileStore (state, emitter) {
   state.userProfile = null
   state.userArchive = null
   state.currentProfile = null
+  state.isFollowingUser = null
 
   emitter.on('pushState', () => {
     // clear page state
     state.currentProfile = null
+    state.isFollowingUser = null
   })
 
   emitter.on('cachedb-ready', async () => {
@@ -53,6 +55,7 @@ module.exports = async function profileStore (state, emitter) {
   state.loadProfile = async (url, {getFollowProfiles} = {}) => {
     try {
       state.currentProfile = await readProfile(state, url, {getFollowProfiles})
+      state.isFollowingUser = await getIsFollowed(state, state.currentProfile)
     } catch (e) {
       state.error = e
     }

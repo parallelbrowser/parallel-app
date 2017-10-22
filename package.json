@@ -32,7 +32,7 @@
     "hypercore": "^6.10.1",
     "hyperdiscovery": "^7.0.0",
     "moment": "^2.18.1",
-    "parallel-api": "git://github.com/parallelbrowser/parallel-api.git#ingest-test",
+    "parallel-api": "git://github.com/parallelbrowser/parallel-api.git",
     "random-access-memory": "^2.4.0"
   },
   "devDependencies": {
