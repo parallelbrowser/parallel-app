@@ -1,3 +1,5 @@
+const {getIsFollowed} = require('../util')
+
 module.exports = function feedStore (state, emitter) {
   state.error = null
   state.posts = null
